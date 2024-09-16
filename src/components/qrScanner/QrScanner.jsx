@@ -42,7 +42,7 @@ const QrScanner = () => {
       Vibration.vibrate();
       setScanningEnabled(false);
       console.log('Scanned data:', data);
-      Alert.alert('Success', 'Insert things here'[{ text: 'Memes', onPress: () => setScanningEnabled(true) }]);
+      Alert.alert('Success', data.data, [{ text: 'Ok', onPress: () => setScanningEnabled(true) }]);
     } catch (error) {
       Alert.alert('Error', error.message);
     }
