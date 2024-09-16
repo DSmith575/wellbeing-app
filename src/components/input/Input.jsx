@@ -5,7 +5,7 @@ const Input = ({
   type,
   placeholder,
   value,
-  onChange,
+  onChangeText,
   minLength,
   maxLength,
   accessibilityLabel,
@@ -21,7 +21,7 @@ const Input = ({
         type={type}
         placeholder={placeholder}
         value={value}
-        onChange={onChange}
+        onChangeText={onChangeText}
         accessibilityLabel={accessibilityLabel}
         accessibilityHint={accessibilityHint}
         accessibilityRole={accessibilityRole}
