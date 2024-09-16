@@ -1,11 +1,17 @@
 import { StatusBar } from 'expo-status-bar';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
+import Navigation from './src/navigation/NavigationContainer';
+import { AuthContextProvider } from './src/context/firebase/FirestoreAuthContext';
 
 export default function App() {
   return (
-    <View>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <>
+      <AuthContextProvider>
+        <View className={'flex-1'}>
+          <StatusBar style="auto" />
+          <Navigation />
+        </View>
+      </AuthContextProvider>
+    </>
   );
 }
