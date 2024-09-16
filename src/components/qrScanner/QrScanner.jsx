@@ -49,17 +49,15 @@ const QrScanner = () => {
   };
 
   return (
-    <SafeAreaView className="flex-1 p-4">
-      <View className="flex-1 justify-center items-center">
-        <View className="w-full h-3/5">
-          <CameraView
-            className="flex-1"
-            facing={'back'}
-            onBarcodeScanned={onBarcodeScanned}
-            barcodeScannerSettings={{ barcodeTypes: ['qr'] }}
-          />
-        </View>
-        <Text className="mt-4 text-lg">Scan QR Code</Text>
+    <SafeAreaView className="flex-1 p-4 items-center">
+      <Text className="mt-4 text-lg font-bold">Scan QR Code</Text>
+      <View className="w-full h-3/5">
+        <CameraView
+          className="flex-1"
+          facing={'back'}
+          onBarcodeScanned={onBarcodeScanned}
+          barcodeScannerSettings={{ barcodeTypes: ['qr'] }}
+        />
       </View>
     </SafeAreaView>
   );
