@@ -1,6 +1,5 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import HomeScreen from '../screens/home/HomeScreen';
 import { routes } from './routes/routes';
 
 const Tab = createBottomTabNavigator();
