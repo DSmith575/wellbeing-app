@@ -3,8 +3,11 @@ import { Text, View, TouchableOpacity, Alert, SafeAreaView, ActivityIndicator, V
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import { useFocusEffect } from '@react-navigation/native';
 import { firestore } from '../../config/firebase';
-import { arrayUnion, doc, getDoc, updateDoc } from 'firebase/firestore';
+import { arrayRemove, arrayUnion, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { useUserAuth } from '../../context/firebase/FirestoreAuthContext';
+
+// TODO
+// Add if event is full
 
 const QrScanner = () => {
   const { user } = useUserAuth();
@@ -47,19 +50,52 @@ const QrScanner = () => {
       setLoading(true);
       Vibration.vibrate();
       setScanningEnabled(false);
-      console.log('Scanned data:', data.data);
       const collectionRef = doc(firestore, 'events', data.data);
       const docSnap = await getDoc(collectionRef);
+
       if (!docSnap.exists()) {
         Alert.alert('Error', 'QR Code is invalid');
         return;
       }
 
       const docData = docSnap.data();
-      console.log(docData);
 
       if (!docData || !docData.eventName) {
         Alert.alert('Error', 'Event name is not available');
+        return;
+      }
+
+      if (docData.signedUp.includes(user)) {
+        Alert.alert('Error', 'You have already signed up for this event', [
+          {
+            text: 'OK',
+            onPress: () => {
+              setScanningEnabled(true);
+            },
+          },
+          {
+            text: 'Leave Event',
+            onPress: async () => {
+              await updateDoc(collectionRef, {
+                signedUp: arrayRemove(user),
+              });
+              setScanningEnabled(true);
+            },
+            style: 'cancel',
+          },
+        ]);
+        return;
+      }
+
+      if (docData.signedUp.length >= docData.groupLimit) {
+        Alert.alert('Error', 'Event is full', [
+          {
+            text: 'OK',
+            onPress: () => {
+              setScanningEnabled(true);
+            },
+          },
+        ]);
         return;
       }
 
@@ -68,7 +104,6 @@ const QrScanner = () => {
           text: 'Join',
           onPress: async () => {
             // Add logic for joining the event
-            console.log('User joined the event');
             const eventRef = doc(firestore, 'events', data.data);
 
             await updateDoc(eventRef, {
@@ -81,7 +116,6 @@ const QrScanner = () => {
         {
           text: 'Cancel',
           onPress: () => {
-            console.log('User cancelled');
             setScanningEnabled(true);
           },
           style: 'cancel', // This makes it look like a cancel button (iOS only)
