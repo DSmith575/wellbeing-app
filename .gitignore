@@ -3,7 +3,7 @@
 # dependencies
 node_modules/
 .env
-
+android
 # Expo
 .expo/
 dist/
