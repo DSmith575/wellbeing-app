@@ -5,15 +5,13 @@ import { useFocusEffect } from '@react-navigation/native';
 import { firestore } from '../../config/firebase';
 import { arrayRemove, arrayUnion, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { useUserAuth } from '../../context/firebase/FirestoreAuthContext';
-
-// TODO
-// Add if event is full
+import useLoading from '../../hooks/loading/useLoading';
 
 const QrScanner = () => {
   const { user } = useUserAuth();
   const [permission, requestPermission] = useCameraPermissions();
   const [scanningEnabled, setScanningEnabled] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const { loading, setLoading } = useLoading();
 
   useFocusEffect(
     useCallback(() => {
@@ -45,9 +43,9 @@ const QrScanner = () => {
   }
 
   const onBarcodeScanned = async (data) => {
-    if (!scanningEnabled || loading) return;
+    if (!scanningEnabled || loading('scanning')) return;
     try {
-      setLoading(true);
+      setLoading('scanning', true);
       Vibration.vibrate();
       setScanningEnabled(false);
       const collectionRef = doc(firestore, 'events', data.data);
@@ -150,7 +148,7 @@ const QrScanner = () => {
     } catch (error) {
       Alert.alert('Error', error.message);
     } finally {
-      setLoading(false);
+      setLoading('scanning', false);
     }
   };
 
@@ -158,7 +156,7 @@ const QrScanner = () => {
     <SafeAreaView className="flex-1 p-4 items-center">
       <Text className="mt-4 text-lg font-bold">Scan QR Code</Text>
       <View className="w-full h-3/5">
-        {loading ? (
+        {loading('scanning') ? (
           <ActivityIndicator size="large" color="#0000ff" />
         ) : (
           <CameraView
