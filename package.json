@@ -6,7 +6,7 @@
     "start": "expo start",
     "tunnel": "expo start --tunnel",
     "android": "expo start --android",
-    "localHost": "expo start --localhost --android",
+    "localhost": "expo start --localhost --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
     "pretty:check": "npx prettier . --check",

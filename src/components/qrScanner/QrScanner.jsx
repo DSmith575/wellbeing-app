@@ -118,7 +118,7 @@ const QrScanner = () => {
             onPress: () => {
               setScanningEnabled(true);
             },
-            style: 'cancel', // This makes it look like a cancel button (iOS only)
+            style: 'cancel',
           },
         ]);
         return;
@@ -142,7 +142,7 @@ const QrScanner = () => {
           onPress: () => {
             setScanningEnabled(true);
           },
-          style: 'cancel', // This makes it look like a cancel button (iOS only)
+          style: 'cancel',
         },
       ]);
     } catch (error) {
