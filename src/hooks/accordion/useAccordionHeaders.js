@@ -14,21 +14,30 @@ const useAccordionHeaders = () => {
             ...doc.data(),
           }));
 
-          const groupedEvents = eventList.reduce((acc, event) => {
+          const currentDate = new Date();
+
+          const filteredEvents = eventList.filter((event) => {
+            return event.eventDate.toDate() >= currentDate;
+          });
+
+          const sortedEvents = filteredEvents.sort((a, b) => {
+            return a.eventDate.toDate() - b.eventDate.toDate();
+          });
+
+          const groupedEvents = sortedEvents.reduce((acc, event) => {
             const category = event.eventCategory;
             if (!acc[category]) {
-              acc[category] = [];
+              acc[category] = {
+                title: category,
+                data: [],
+              };
             }
-            acc[category].push(event);
+            acc[category].data.push(event);
             return acc;
           }, {});
 
-          const sectionsData = Object.keys(groupedEvents).map((category) => ({
-            title: category,
-            data: groupedEvents[category],
-          }));
-
-          setSections(sectionsData);
+          const sectionListData = Object.values(groupedEvents);
+          setSections(sectionListData);
         },
       });
     } catch (error) {
