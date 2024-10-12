@@ -4,9 +4,9 @@ import Profile from '../../screens/profile/Profile';
 
 export const routes = [
   {
-    name: 'Home',
+    name: 'Explore Events',
     component: HomeScreen,
-    label: 'Home',
+    label: 'Explore Events',
     icon: 'home',
   },
   {

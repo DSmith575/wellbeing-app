@@ -6,7 +6,7 @@ const Tab = createBottomTabNavigator();
 
 const TabNavigation = () => {
   return (
-    <Tab.Navigator initialRouteName="Home">
+    <Tab.Navigator initialRouteName="Explore Events">
       {routes.map((route, index) => (
         <Tab.Screen
           key={index}

@@ -98,31 +98,32 @@ const QrScanner = () => {
       }
 
       //  show alert if groupLimit is undefined aka "unlimited"
-      if (docData.groupLimit === undefined) {
-        Alert.alert(docData.eventName, 'This event has unlimited spots', [
-          {
-            text: 'Join',
-            onPress: async () => {
-              // Add logic for joining the event
-              const eventRef = doc(firestore, 'events', data.data);
+      // if (docData.groupLimit === undefined) {
+      //   Alert.alert(docData.eventName, 'This event has unlimited spots', [
+      //     {
+      //       text: 'Join',
+      //       onPress: async () => {
+      //         // Add logic for joining the event
+      //         const eventRef = doc(firestore, 'events', data.data);
 
-              await updateDoc(eventRef, {
-                signedUp: arrayUnion(user),
-              });
+      //         await updateDoc(eventRef, {
+      //           signedUp: arrayUnion(user),
+      //         });
 
-              setScanningEnabled(true);
-            },
-          },
-          {
-            text: 'Cancel',
-            onPress: () => {
-              setScanningEnabled(true);
-            },
-            style: 'cancel',
-          },
-        ]);
-        return;
-      }
+      //         setScanningEnabled(true);
+      //       },
+      //     },
+      //     {
+      //       text: 'Cancel',
+      //       onPress: () => {
+      //         setScanningEnabled(true);
+      //       },
+      //       style: 'cancel',
+      //     },
+      //   ]);
+      //   return;
+      // }
+
       Alert.alert(docData.eventName, `${docData.signedUp.length} out of ${docData.groupLimit} spots filled`, [
         {
           text: 'Join',
