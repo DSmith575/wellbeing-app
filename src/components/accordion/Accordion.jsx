@@ -1,15 +1,14 @@
-import { useState, useEffect } from 'react';
-import { View, Text, SectionList, TouchableOpacity } from 'react-native';
-import useAccordionHeaders from '../../hooks/accordion/useAccordionHeaders';
+import { useState, useEffect } from "react";
+import { View, Text, SectionList, TouchableOpacity } from "react-native";
+import useAccordion from "../../hooks/accordion/useAccordion";
 
 const Accordion = () => {
-  const sections = useAccordionHeaders();
+  const sections = useAccordion();
   const [collapsedSections, setCollapsedSections] = useState({});
 
   useEffect(() => {
     if (sections.length > 0) {
       const initialState = sections.reduce((acc, section) => {
-        // Initialize collapsed state only if not already set
         if (collapsedSections[section.title] === undefined) {
           acc[section.title] = true;
         }
@@ -27,7 +26,7 @@ const Accordion = () => {
   };
 
   const renderSectionHeader = ({ section: { title } }) => (
-    <TouchableOpacity onPress={() => toggleSection(title)} className={'bg-blue-500 px-4 py-4 my-2 rounded-full mx-4'}>
+    <TouchableOpacity onPress={() => toggleSection(title)} className={"bg-blue-500 px-4 py-4 my-2 rounded-full mx-4"}>
       <Text className="text-white font-bold text-md">{title}</Text>
     </TouchableOpacity>
   );

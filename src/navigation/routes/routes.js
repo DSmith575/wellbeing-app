@@ -1,24 +1,24 @@
-import QrScanner from '../../components/qrScanner/QrScanner';
-import HomeScreen from '../../screens/home/HomeScreen';
-import Profile from '../../screens/profile/Profile';
+import QrScanner from "../../components/qrScanner/QrScanner";
+import ExploreEvents from "../../screens/events/HomeScreen";
+import Profile from "../../screens/profile/Profile";
 
 export const routes = [
   {
-    name: 'Explore Events',
-    component: HomeScreen,
-    label: 'Explore Events',
-    icon: 'home',
+    name: "Explore Events",
+    component: ExploreEvents,
+    label: "Explore Events",
+    icon: "home",
   },
   {
-    name: 'QR Scanner',
+    name: "QR Scanner",
     component: QrScanner,
-    label: 'QR Scanner',
-    icon: 'qrcode-scan',
+    label: "QR Scanner",
+    icon: "qrcode-scan",
   },
   {
-    name: 'Profile',
+    name: "Profile",
     component: Profile,
-    label: 'Profile',
-    icon: 'account',
+    label: "Profile",
+    icon: "account",
   },
 ];

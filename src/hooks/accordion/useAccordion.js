@@ -1,13 +1,14 @@
-import { useEffect, useState } from 'react';
-import { getEvents } from '../../utils/firestore/firestoreFunctions';
+import { useEffect, useState } from "react";
+import { getEvents } from "../../utils/firestore/firestoreFunctions";
+import { eventCollection } from "../../utils/constants/constants";
 
-const useAccordionHeaders = () => {
+const useAccordion = () => {
   const [sections, setSections] = useState([]);
 
   const getEventData = async () => {
     try {
       return getEvents({
-        collectionName: 'events',
+        collectionName: eventCollection,
         callback: (snapshot) => {
           const eventList = snapshot.docs.map((doc) => ({
             id: doc.id,
@@ -41,7 +42,7 @@ const useAccordionHeaders = () => {
         },
       });
     } catch (error) {
-      console.error('Error fetching events', error);
+      console.error("Error fetching events", error);
     }
   };
 
@@ -52,4 +53,4 @@ const useAccordionHeaders = () => {
   return sections;
 };
 
-export default useAccordionHeaders;
+export default useAccordion;
