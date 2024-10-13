@@ -1,5 +1,5 @@
-import { collection, query, onSnapshot } from 'firebase/firestore';
-import { firestore } from '../../config/firebase';
+import { collection, query, onSnapshot } from "firebase/firestore";
+import { firestore } from "../../config/firebase";
 
 export const getEvents = async ({ collectionName, callback }) => {
   try {
@@ -8,6 +8,6 @@ export const getEvents = async ({ collectionName, callback }) => {
 
     return onSnapshot(eventQuery, callback);
   } catch (error) {
-    console.error('Error getting events', error);
+    console.error("Error getting events", error);
   }
 };

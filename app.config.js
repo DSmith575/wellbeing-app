@@ -1,37 +1,37 @@
-import 'dotenv/config';
+import "dotenv/config";
 
 export default {
   expo: {
     plugins: [
       [
-        'expo-camera',
+        "expo-camera",
         {
-          cameraPermission: 'Allow $(PRODUCT_NAME) to access your camera',
+          cameraPermission: "Allow $(PRODUCT_NAME) to access your camera",
         },
       ],
     ],
-    name: 'wellbeing-app',
-    slug: 'wellbeing-app',
-    version: '1.0.0',
-    orientation: 'portrait',
-    icon: './assets/icon.png',
-    userInterfaceStyle: 'light',
+    name: "wellbeing-app",
+    slug: "wellbeing-app",
+    version: "1.0.0",
+    orientation: "portrait",
+    icon: "./assets/icon.png",
+    userInterfaceStyle: "light",
     splash: {
-      image: './assets/splash.png',
-      resizeMode: 'contain',
-      backgroundColor: '#ffffff',
+      image: "./assets/splash.png",
+      resizeMode: "contain",
+      backgroundColor: "#ffffff",
     },
     ios: {
       supportsTablet: true,
     },
     android: {
       adaptiveIcon: {
-        foregroundImage: './assets/adaptive-icon.png',
-        backgroundColor: '#ffffff',
+        foregroundImage: "./assets/adaptive-icon.png",
+        backgroundColor: "#ffffff",
       },
     },
     web: {
-      favicon: './assets/favicon.png',
+      favicon: "./assets/favicon.png",
     },
     extra: {
       apiKey: process.env.API_KEY,

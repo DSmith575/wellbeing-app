@@ -1,1 +1,1 @@
-import { Alert } from 'react-native';
+import { Alert } from "react-native";

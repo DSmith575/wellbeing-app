@@ -1,22 +1,22 @@
-import { View } from 'react-native';
-import useFormInput from '../../hooks/forms/useFormInput';
-import Input from '../../components/input/Input';
-import Button from '../../components/button/Button';
-import { useUserAuth } from '../../context/firebase/FirestoreAuthContext';
+import { View } from "react-native";
+import useFormInput from "../../hooks/forms/useFormInput";
+import Input from "../../components/input/Input";
+import Button from "../../components/button/Button";
+import { useUserAuth } from "../../context/firebase/FirestoreAuthContext";
 
 const LoginForm = () => {
   const { login } = useUserAuth();
-  const email = useFormInput('');
-  const password = useFormInput('');
+  const email = useFormInput("");
+  const password = useFormInput("");
 
   const handleSubmit = () => {
     login(email.value, password.value);
   };
 
   return (
-    <View className={'flex-1 justify-center items-center'}>
+    <View className={"flex-1 justify-center items-center"}>
       <Input
-        label={'Email'}
+        label={"Email"}
         type="email"
         placeholder="Enter Email"
         required
@@ -29,7 +29,7 @@ const LoginForm = () => {
       />
 
       <Input
-        label={'Password'}
+        label={"Password"}
         type="password"
         placeholder="Enter Password"
         required

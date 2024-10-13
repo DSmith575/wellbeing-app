@@ -1,6 +1,6 @@
-import { createContext, useContext, useEffect, useState } from 'react';
-import { signOut, signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
-import { auth } from '../../config/firebase';
+import { createContext, useContext, useEffect, useState } from "react";
+import { signOut, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../config/firebase";
 
 const UserContext = createContext();
 
@@ -15,7 +15,7 @@ const AuthContextProvider = ({ children }) => {
     try {
       return await signInWithEmailAndPassword(auth, email, password);
     } catch (error) {
-      console.error('Error signing in:', error);
+      console.error("Error signing in:", error);
     }
   };
 
@@ -23,7 +23,7 @@ const AuthContextProvider = ({ children }) => {
     try {
       return await signOut(auth);
     } catch (error) {
-      console.error('Error signing out:', error);
+      console.error("Error signing out:", error);
     }
   };
 
