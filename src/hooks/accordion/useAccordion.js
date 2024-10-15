@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
 import { getEvents } from "../../utils/firestore/firestoreFunctions";
-import { eventCollection } from "../../utils/constants/constants";
-import { eventCategories } from "../../utils/constants/constants";
+import { eventCollection, eventCategories } from "../../utils/constants/constants";
 
 const useAccordion = () => {
   const [sections, setSections] = useState([]);
 
   const getEventData = async () => {
     try {
-      return getEvents({
+      await getEvents({
         collectionName: eventCollection,
         callback: (snapshot) => {
           const eventList = snapshot.docs.map((doc) => ({
@@ -26,23 +25,24 @@ const useAccordion = () => {
             return a.eventDate.toDate() - b.eventDate.toDate();
           });
 
-          const groupedEvents = sortedEvents.reduce((acc, event) => {
-            // CHECK THIS
-            const eventCategoryHeader = eventCategories.label;
-            const category = event.eventCategory;
-            if (!acc[category]) {
-              acc[category] = {
-                title: eventCategoryHeader,
-                uri: eventCategoryHeader.find((c) => c.value === category).uri,
-                data: [],
-              };
-            }
-            acc[category].data.push(event);
-            return acc;
-          }, {});
+          const initializedSections = eventCategories.map((category) => ({
+            title: category.label,
+            headerUri: category.uri,
+            // Update event creator to set color
+            backgroundColor: "bg-sky-500",
+            data: [],
+          }));
 
-          const sectionListData = Object.values(groupedEvents);
-          setSections(sectionListData);
+          sortedEvents.forEach((event) => {
+            const category = event.eventCategory;
+            const section = initializedSections.find((sec) => sec.title === category);
+
+            if (section) {
+              section.data.push(event);
+            }
+          });
+
+          setSections(initializedSections);
         },
       });
     } catch (error) {

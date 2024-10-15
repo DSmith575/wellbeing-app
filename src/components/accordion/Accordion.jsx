@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { View, Text, SectionList, TouchableOpacity } from "react-native";
+import { View, Text, SectionList, TouchableOpacity, ImageBackground } from "react-native";
 import useAccordion from "../../hooks/accordion/useAccordion";
 
 const Accordion = () => {
@@ -25,10 +25,12 @@ const Accordion = () => {
     }));
   };
 
-  const renderSectionHeader = ({ section: { title } }) => (
-    <TouchableOpacity onPress={() => toggleSection(title)} className={"bg-blue-500 px-4 py-4 my-2 rounded-full mx-4"}>
-      <Text className="text-white font-bold text-md">{title}</Text>
-    </TouchableOpacity>
+  const renderSectionHeader = ({ section: { title, backgroundColor, headerUri } }) => (
+    <ImageBackground source={headerUri} className="px-4 py-4 my-2 rounded-md mx-4" resizeMode="cover">
+      <TouchableOpacity onPress={() => toggleSection(title)} className={""}>
+        <Text className="text-black font-bold text-md p-4">{title}</Text>
+      </TouchableOpacity>
+    </ImageBackground>
   );
 
   const renderItem = ({ item, section }) => {
@@ -37,7 +39,7 @@ const Accordion = () => {
     }
 
     return (
-      <View className="bg-white border rounded-lg p-4 m-2 shadow-lg">
+      <View className="bg-white border rounded-lg p-4 my-1 mx-4 shadow-lg">
         <Text className="text-base">
           <Text className="font-bold">Event: </Text>
           {item.eventName}
