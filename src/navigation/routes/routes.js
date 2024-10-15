@@ -1,5 +1,5 @@
 import QrScanner from "../../components/qrScanner/QrScanner";
-import ExploreEvents from "../../screens/events/HomeScreen";
+import ExploreEvents from "../../screens/events/ExploreEvents";
 import Profile from "../../screens/profile/Profile";
 
 export const routes = [
