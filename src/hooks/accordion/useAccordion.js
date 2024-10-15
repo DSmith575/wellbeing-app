@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getEvents } from "../../utils/firestore/firestoreFunctions";
 import { eventCollection } from "../../utils/constants/constants";
+import { eventCategories } from "../../utils/constants/constants";
 
 const useAccordion = () => {
   const [sections, setSections] = useState([]);
@@ -26,10 +27,13 @@ const useAccordion = () => {
           });
 
           const groupedEvents = sortedEvents.reduce((acc, event) => {
+            // CHECK THIS
+            const eventCategoryHeader = eventCategories.label;
             const category = event.eventCategory;
             if (!acc[category]) {
               acc[category] = {
-                title: category,
+                title: eventCategoryHeader,
+                uri: eventCategoryHeader.find((c) => c.value === category).uri,
                 data: [],
               };
             }
