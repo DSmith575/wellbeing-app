@@ -1,29 +1,13 @@
-import { useState, useEffect } from "react";
-import { View, Text, SectionList, TouchableOpacity, ImageBackground, ScrollView } from "react-native";
+import { View, Text, SectionList, TouchableOpacity, ImageBackground } from "react-native";
 import useAccordion from "../../hooks/accordion/useAccordion";
+import { checkDate, convertDateTimeToLocale } from "../../utils/dateTime/dateTimeFunctions";
+import AccordionEventItem from "./AccordionEventItem";
+import AttendeeList from "./AttendeeList";
+import useAccordionToggle from "../../hooks/accordion/useAccordionToggle";
 
-const Accordion = ({ showRecordData }) => {
-  const { sections, attendees } = useAccordion(showRecordData);
-  const [collapsedSections, setCollapsedSections] = useState({});
-
-  useEffect(() => {
-    if (sections.length > 0) {
-      const initialState = sections.reduce((acc, section) => {
-        if (collapsedSections[section.title] === undefined) {
-          acc[section.title] = true;
-        }
-        return acc;
-      }, {});
-      setCollapsedSections((prevState) => ({ ...prevState, ...initialState }));
-    }
-  }, [sections]);
-
-  const toggleSection = (title) => {
-    setCollapsedSections((prev) => ({
-      ...prev,
-      [title]: !prev[title],
-    }));
-  };
+const Accordion = ({ showRecordData, shouldFilterByDate }) => {
+  const { sections, attendees } = useAccordion(showRecordData, shouldFilterByDate);
+  const { collapsedSections, toggleSection } = useAccordionToggle(sections);
 
   const renderSectionHeader = ({ section: { title, backgroundColor, headerUri } }) => (
     <ImageBackground source={headerUri} className="px-4 py-4 my-2 rounded-md mx-4" resizeMode="cover">
@@ -38,62 +22,23 @@ const Accordion = ({ showRecordData }) => {
       return null;
     }
 
-    const checkDate = (date) => {
-      const currentDate = new Date().toLocaleString().split(",")[0];
-      const eventDate = date.split(",")[0];
-      return eventDate === currentDate;
-    };
-
     return (
       <>
         <View className={"bg-slate-100 border rounded-lg p-3 my-1 mx-4 shadow-lg relative"}>
+          <View className={`${item.backgroundColor} h-8 w-8 rounded-full absolute top-2 right-2`} />
+          <AccordionEventItem headerText="Event" labelText={item.eventName} />
+          <AccordionEventItem headerText="Date" labelText={convertDateTimeToLocale(item.eventDate)} />
           {showRecordData ? (
-            <View>
-              <Text className="text-base">
-                <Text className="font-bold">Event: </Text>
-                {item.eventName}
-              </Text>
-              <Text className="text-base">
-                <Text className="font-bold">Date: </Text>
-                {item.eventDate.toDate().toLocaleString("en-NZ")}
-              </Text>
-              <Text className="text-base">
-                <Text className="font-bold">Attendees: {item.signedUp.length}</Text>
-              </Text>
-              <ScrollView className={""}>
-                {attendees.map((attendee) => (
-                  <Text className="text-base" key={attendee.id}>
-                    {attendee.firstName} {attendee.lastName}
-                  </Text>
-                ))}
-              </ScrollView>
-            </View>
+            <AttendeeList attendees={attendees} signedUp={item.signedUp.length} />
           ) : (
-            <View className={`bg-slate-100 border rounded-lg p-3 my-1 mx-4 shadow-lg relative`}>
-              <View className={`${item.backgroundColor} h-8 w-8 rounded-full absolute top-2 right-2`} />
-              <Text className="text-base">
-                <Text className="font-bold">Event: </Text>
-                {item.eventName}
-              </Text>
-              <Text className="text-base">
-                <Text className="font-bold">Date: </Text>
-                {item.eventDate.toDate().toLocaleString("en-NZ")}
-              </Text>
+            <View>
               <Text>{item.eventRecurrence}</Text>
               {item.groupLimit > 0 ? (
-                <Text className="text-base">
-                  <Text className="font-bold">Group Limit: </Text>
-                  <Text>
-                    {item.signedUp.length} / {item.groupLimit}
-                  </Text>
-                </Text>
+                <AccordionEventItem headerText="Group Limit" labelText={item.groupLimit} />
               ) : (
-                <Text className="text-base">
-                  <Text className="font-bold">Group Limit: </Text>
-                  <Text className="text-base">No Limit</Text>
-                </Text>
+                <AccordionEventItem headerText="Group Limit" labelText="No Limit" />
               )}
-              {checkDate(item.eventDate.toDate().toLocaleString()) && <Text className="text-base text-red-500">Event today</Text>}
+              {checkDate(convertDateTimeToLocale(item.eventDate)) && <Text className="text-base text-red-500">Event today</Text>}
             </View>
           )}
         </View>
@@ -102,12 +47,14 @@ const Accordion = ({ showRecordData }) => {
   };
 
   return (
-    <SectionList
-      sections={sections}
-      keyExtractor={(item) => item.id}
-      renderItem={renderItem}
-      renderSectionHeader={renderSectionHeader}
-    />
+    <>
+      <SectionList
+        sections={sections}
+        keyExtractor={(item) => item.id}
+        renderItem={renderItem}
+        renderSectionHeader={renderSectionHeader}
+      />
+    </>
   );
 };
 

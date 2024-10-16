@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { getEvents } from "../../utils/firestore/firestoreFunctions";
 import { eventCollection, eventCategories } from "../../utils/constants/constants";
 import useLoading from "../loading/useLoading";
-import { collection, getDoc, query, where, doc } from "firebase/firestore";
+import { collection, getDoc, doc } from "firebase/firestore";
 import { firestore } from "../../config/firebase";
 
-const useAccordion = (showRecordData) => {
+const useAccordion = (showRecordData, shouldFilterByDate) => {
   const [sections, setSections] = useState([]);
   const [attendees, setAttendees] = useState([]);
   const { loading, setLoading } = useLoading();
@@ -22,8 +22,13 @@ const useAccordion = (showRecordData) => {
             ...doc.data(),
           }));
 
-          const currentDate = new Date();
-          const filteredEvents = eventList.filter((event) => event.eventDate.toDate() >= currentDate);
+          let filteredEvents = eventList;
+
+          if (shouldFilterByDate) {
+            const currentDate = new Date();
+            filteredEvents = eventList.filter((event) => event.eventDate.toDate() >= currentDate);
+          }
+
           const sortedEvents = filteredEvents.sort((a, b) => a.eventDate.toDate() - b.eventDate.toDate());
 
           const initializedSections = eventCategories.map((category) => ({
@@ -32,8 +37,6 @@ const useAccordion = (showRecordData) => {
             backgroundColor: "bg-sky-500",
             data: [],
           }));
-
-          await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulating a delay
 
           const userIdSet = new Set();
 
@@ -44,7 +47,7 @@ const useAccordion = (showRecordData) => {
             if (section) {
               section.data.push({
                 ...event,
-                backgroundColor: "bg-pink-100",
+                backgroundColor: "bg-sky-300",
               });
 
               // Collect unique user IDs (document IDs)
@@ -82,8 +85,9 @@ const useAccordion = (showRecordData) => {
   };
 
   useEffect(() => {
+    console.log("useAccordion: Fetching event data...");
     getEventData();
-  }, []);
+  }, [shouldFilterByDate]);
 
   return { sections, attendees, loading };
 };
