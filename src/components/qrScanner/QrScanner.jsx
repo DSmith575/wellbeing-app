@@ -3,10 +3,12 @@ import { Text, View, TouchableOpacity, Alert, SafeAreaView, ActivityIndicator, V
 import { CameraView, useCameraPermissions } from "expo-camera";
 import { useFocusEffect } from "@react-navigation/native";
 import { firestore } from "../../config/firebase";
-import { arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
+import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { useUserAuth } from "../../context/firebase/FirestoreAuthContext";
 import useLoading from "../../hooks/loading/useLoading";
 import { eventCollection } from "../../utils/constants/constants";
+import { checkDate, convertDateTimeToLocale } from "../../utils/dateTime/dateTimeFunctions";
+import { getEvent, joinEvent } from "../../utils/firestore/firestoreFunctions";
 
 const QrScanner = () => {
   const { user } = useUserAuth();
@@ -49,15 +51,30 @@ const QrScanner = () => {
       setLoading("scanning", true);
       Vibration.vibrate();
       setScanningEnabled(false);
-      const collectionRef = doc(firestore, eventCollection, data.data);
-      const docSnap = await getDoc(collectionRef);
 
-      if (!docSnap.exists()) {
-        Alert.alert("Error", "QR Code is invalid");
+      const docData = await getEvent(eventCollection, data.data);
+
+      // if (!docSnap.exists()) {
+      //   Alert.alert("Error", "QR Code is invalid");
+      //   return;
+      //
+      // }
+
+      const eventDate = convertDateTimeToLocale(docData.eventDate);
+
+      const eventDateCheck = checkDate(eventDate);
+
+      if (!eventDateCheck) {
+        Alert.alert("Error", "Event is not on today or has ended", [
+          {
+            text: "OK",
+            onPress: () => {
+              setScanningEnabled(true);
+            },
+          },
+        ]);
         return;
       }
-
-      const docData = docSnap.data();
 
       if (!docData || !docData.eventName) {
         Alert.alert("Error", "Event name is not available");
@@ -92,25 +109,15 @@ const QrScanner = () => {
         {
           text: "Join",
           onPress: async () => {
-            const eventRef = doc(firestore, eventCollection, data.data);
-
-            await updateDoc(eventRef, {
-              signedUp: arrayUnion(user),
-            });
+            await joinEvent(eventCollection, data.data, user);
 
             setScanningEnabled(true);
           },
         },
-        // {
-        //   text: "Cancel",
-        //   onPress: () => {
-        //     setScanningEnabled(true);
-        //   },
-        //   style: "cancel",
-        // },
       ]);
     } catch (error) {
       Alert.alert("Error", error.message);
+      setScanningEnabled(true);
     } finally {
       setLoading("scanning", false);
     }

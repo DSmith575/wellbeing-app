@@ -1,12 +1,12 @@
-import { View, Text, SectionList, TouchableOpacity, ImageBackground } from "react-native";
-import useAccordion from "../../hooks/accordion/useAccordion";
+import { View, Text, SectionList, TouchableOpacity, ImageBackground, ActivityIndicator } from "react-native";
 import { checkDate, convertDateTimeToLocale } from "../../utils/dateTime/dateTimeFunctions";
 import AccordionEventItem from "./AccordionEventItem";
 import AttendeeList from "./AttendeeList";
+import useAccordion from "../../hooks/accordion/useAccordion";
 import useAccordionToggle from "../../hooks/accordion/useAccordionToggle";
 
 const Accordion = ({ showRecordData, shouldFilterByDate }) => {
-  const { sections, attendees } = useAccordion(showRecordData, shouldFilterByDate);
+  const { sections, attendees, loading } = useAccordion(showRecordData, shouldFilterByDate);
   const { collapsedSections, toggleSection } = useAccordionToggle(sections);
 
   const renderSectionHeader = ({ section: { title, backgroundColor, headerUri } }) => (
@@ -48,12 +48,18 @@ const Accordion = ({ showRecordData, shouldFilterByDate }) => {
 
   return (
     <>
-      <SectionList
-        sections={sections}
-        keyExtractor={(item) => item.id}
-        renderItem={renderItem}
-        renderSectionHeader={renderSectionHeader}
-      />
+      {loading("eventData") ? (
+        <View className={"flex-1"}>
+          <ActivityIndicator size={"large"} />
+        </View>
+      ) : (
+        <SectionList
+          sections={sections}
+          keyExtractor={(item) => item.id}
+          renderItem={renderItem}
+          renderSectionHeader={renderSectionHeader}
+        />
+      )}
     </>
   );
 };

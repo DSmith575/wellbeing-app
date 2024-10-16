@@ -13,6 +13,12 @@ export const filteredEvents = (eventList, currentDate) => {
 
 export const checkDate = (date) => {
   const currentDate = new Date().toLocaleString().split(",")[0];
+  console.log("currentDate", currentDate);
   const eventDate = date.split(",")[0];
+  console.log("eventDate", eventDate);
   return eventDate === currentDate;
+};
+
+export const sortedDates = (date) => {
+  return date.sort((a, b) => a.eventDate.toDate() - b.eventDate.toDate());
 };
