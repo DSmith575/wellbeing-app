@@ -2,8 +2,6 @@ import { useState, useCallback } from "react";
 import { Text, View, TouchableOpacity, Alert, SafeAreaView, ActivityIndicator, Vibration } from "react-native";
 import { CameraView, useCameraPermissions } from "expo-camera";
 import { useFocusEffect } from "@react-navigation/native";
-import { firestore } from "../../config/firebase";
-import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { useUserAuth } from "../../context/firebase/FirestoreAuthContext";
 import useLoading from "../../hooks/loading/useLoading";
 import { eventCollection } from "../../utils/constants/constants";

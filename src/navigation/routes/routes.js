@@ -11,9 +11,9 @@ export const routes = [
     icon: "home",
   },
   {
-    name: "QR Scanner",
+    name: "Event Scanner",
     component: QrScanner,
-    label: "QR Scanner",
+    label: "Event Scanner",
     icon: "qrcode-scan",
   },
   {

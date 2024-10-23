@@ -43,7 +43,13 @@ const LoginForm = () => {
         accessibilityState={{ disabled: false }}
         secureTextEntry
       />
-      <Button onPress={handleSubmit} text="Login" accessibilityLabel="Login button" accessibilityHint="Tap to login" />
+      <Button
+        onPress={handleSubmit}
+        text="Login"
+        accessibilityLabel="Login button"
+        accessibilityHint="Tap to login"
+        styles={"w-10/12 bg-blue-400 py-2 px-4 rounded inline-flex items-center"}
+      />
     </View>
   );
 };
