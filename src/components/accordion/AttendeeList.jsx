@@ -1,18 +1,29 @@
-import { ScrollView, Text, View } from "react-native";
+import { ActivityIndicator, ScrollView, Text, View } from "react-native";
+import useGetAttendeesList from "../../hooks/accordion/useGetAttendeesList";
 
-const AttendeeList = ({ attendees, signedUp }) => {
+const AttendeeList = ({ attendees }) => {
+  const { attendedUsers, loading } = useGetAttendeesList(attendees); // Use `attendedUsers` as returned by the hook
   return (
     <View>
-      <Text className="text-base">
-        <Text className="font-bold">Attendees: {signedUp}</Text>
-      </Text>
-      <ScrollView className={""}>
-        {attendees.map((attendee) => (
-          <Text className="text-base" key={attendee.id}>
-            {attendee.firstName} {attendee.lastName}
+      {loading("attendeesList") ? (
+        <>
+          <ActivityIndicator size={"large"} />
+        </>
+      ) : (
+        <ScrollView>
+          <Text className="text-base">
+            <Text className="font-bold">
+              Attended:
+              <Text className="font-normal"> {attendedUsers.length}</Text>
+            </Text>
           </Text>
-        ))}
-      </ScrollView>
+          {attendedUsers.map((attendee) => (
+            <Text className="text-base" key={`${attendee.firstName}-${attendee.lastName}`}>
+              {attendee.firstName} {attendee.lastName}
+            </Text>
+          ))}
+        </ScrollView>
+      )}
     </View>
   );
 };

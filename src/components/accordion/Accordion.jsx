@@ -6,7 +6,7 @@ import useAccordion from "../../hooks/accordion/useAccordion";
 import useAccordionToggle from "../../hooks/accordion/useAccordionToggle";
 
 const Accordion = ({ showRecordData, shouldFilterByDate }) => {
-  const { sections, attendees, loading } = useAccordion(showRecordData, shouldFilterByDate);
+  const { sections, loading } = useAccordion(showRecordData, shouldFilterByDate);
   const { collapsedSections, toggleSection } = useAccordionToggle(sections);
 
   const renderSectionHeader = ({ section: { title, backgroundColor, headerUri } }) => (
@@ -29,7 +29,7 @@ const Accordion = ({ showRecordData, shouldFilterByDate }) => {
           <AccordionEventItem headerText="Event" labelText={item.eventName} />
           <AccordionEventItem headerText="Date" labelText={convertDateTimeToLocale(item.eventDate)} />
           {showRecordData ? (
-            <AttendeeList attendees={attendees} signedUp={item.signedUp.length} />
+            <AttendeeList attendees={item.signedUp} />
           ) : (
             <View>
               <Text>{item.eventRecurrence}</Text>
