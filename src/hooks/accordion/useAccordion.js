@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getEvents } from "../../utils/firestore/firestoreFunctions";
 import { eventCollection, eventCategories } from "../../utils/constants/constants";
-import { getCurrentDateTime, filteredEvents, sortedDates } from "../../utils/dateTime/dateTimeFunctions";
+import { getCurrentDateTime, filteredEvents, sortedDates, recordSortedDates } from "../../utils/dateTime/dateTimeFunctions";
 import useLoading from "../loading/useLoading";
 
 const useAccordion = (showRecordData, shouldFilterByDate) => {
@@ -27,13 +27,7 @@ const useAccordion = (showRecordData, shouldFilterByDate) => {
             filterEvents = filteredEvents(eventList, currentDate);
           }
 
-          const sortedEvents = sortedDates(filterEvents);
-
-          // FixLater, not properly sorting
-
-          // if (showRecordData) {
-          //   sortedEvents = sortedDates(filterEvents);
-          // }
+          const sortedEvents = showRecordData ? recordSortedDates(filterEvents) : sortedDates(filterEvents);
 
           const initializedSections = eventCategories.map((category) => ({
             title: category.label,

@@ -22,6 +22,5 @@ export const sortedDates = (date) => {
 };
 
 export const recordSortedDates = (events) => {
-  console.log(events);
-  return events.sort((a, b) => a.eventDate.toDate().getTime() < b.eventDate.toDate().getTime());
+  return events.sort((a, b) => b.eventDate.toDate().getTime() - a.eventDate.toDate().getTime());
 };

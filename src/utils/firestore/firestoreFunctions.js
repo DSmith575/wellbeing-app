@@ -12,7 +12,7 @@ export const getEvents = async ({ collectionName, callback }) => {
   }
 };
 
-export const getEvent = async (collectionName, docData) => {
+export const getFirebaseDocument = async (collectionName, docData) => {
   try {
     const collectionRef = doc(firestore, collectionName, docData);
     const eventSnapshot = await getDoc(collectionRef);

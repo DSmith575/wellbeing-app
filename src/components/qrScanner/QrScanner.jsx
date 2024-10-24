@@ -6,7 +6,7 @@ import { useUserAuth } from "../../context/firebase/FirestoreAuthContext";
 import useLoading from "../../hooks/loading/useLoading";
 import { eventCollection } from "../../utils/constants/constants";
 import { checkDate, convertDateTimeToLocale } from "../../utils/dateTime/dateTimeFunctions";
-import { getEvent, joinEvent } from "../../utils/firestore/firestoreFunctions";
+import { getFirebaseDocument, joinEvent } from "../../utils/firestore/firestoreFunctions";
 
 const QrScanner = () => {
   const { user } = useUserAuth();
@@ -50,7 +50,7 @@ const QrScanner = () => {
       Vibration.vibrate();
       setScanningEnabled(false);
 
-      const docData = await getEvent(eventCollection, data.data);
+      const docData = await getFirebaseDocument(eventCollection, data.data);
 
       // if (!docSnap.exists()) {
       //   Alert.alert("Error", "QR Code is invalid");

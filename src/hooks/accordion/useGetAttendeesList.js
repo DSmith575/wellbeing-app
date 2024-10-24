@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import useLoading from "../loading/useLoading";
-import { getEvent } from "../../utils/firestore/firestoreFunctions";
+import { getFirebaseDocument } from "../../utils/firestore/firestoreFunctions";
 
 const useGetAttendeesList = (attendees) => {
   const [attendedUsers, setAttendedUsers] = useState([]);
@@ -12,7 +12,7 @@ const useGetAttendeesList = (attendees) => {
         setLoading("attendeesList", true);
         const attendeesData = await Promise.all(
           attendees.map(async (userId) => {
-            const userData = await getEvent("users", userId);
+            const userData = await getFirebaseDocument("users", userId);
             return userData;
           }),
         );
