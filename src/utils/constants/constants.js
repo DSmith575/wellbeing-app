@@ -1,4 +1,5 @@
 export const eventCollection = "events";
+export const userCollection = "users";
 
 export const eventCategories = [
   {

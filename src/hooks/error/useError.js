@@ -11,7 +11,7 @@ const useError = () => {
   };
 
   const error = (key) => {
-    return isError[key] || false;
+    return isError[key] || "";
   };
 
   return { error, setError };

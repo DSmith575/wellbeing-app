@@ -22,7 +22,7 @@ const LoginForm = () => {
       email.reset();
       password.reset();
     } catch (error) {
-      setError(handleFirebaseError(error));
+      setError("login", handleFirebaseError(error));
     } finally {
       setLoading("login", false);
     }
@@ -30,8 +30,9 @@ const LoginForm = () => {
 
   return (
     <View className={"flex-1 justify-center items-center"}>
+      <Text className={"font-bold text-center items-center justify-center"}>You must be logged in to view this page</Text>
       <View className="w-11/12 flex items-center max-w-md border border-gray-300 rounded-lg p-5 bg-white shadow-lg">
-        {error && <Text className="text-red-500">{error}</Text>}
+        {error("login") && <Text className="text-red-500">{error("login")}</Text>}
         <Input
           label={"Email"}
           type="email"

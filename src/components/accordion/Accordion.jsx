@@ -4,8 +4,6 @@ import AccordionEventItem from "./AccordionEventItem";
 import AttendeeList from "./AttendeeList";
 import useAccordion from "../../hooks/accordion/useAccordion";
 import useAccordionToggle from "../../hooks/accordion/useAccordionToggle";
-import useGetUserInfo from "../../hooks/profile/useGetUserInfo";
-import { useUserAuth } from "../../context/firebase/FirestoreAuthContext";
 import Spinner from "../spinner/Spinner";
 
 const Accordion = ({ showRecordData, shouldFilterByDate }) => {
@@ -36,12 +34,7 @@ const Accordion = ({ showRecordData, shouldFilterByDate }) => {
           ) : (
             <View>
               <Text>{item.eventRecurrence}</Text>
-              {
-                item.groupLimit > 0 && <AccordionEventItem headerText="Group Limit" labelText={item.groupLimit} />
-                //  : (
-                //   <AccordionEventItem headerText="Group Limit" labelText="No Limit" />
-                // )
-              }
+              {item.groupLimit > 0 && <AccordionEventItem headerText="Group Limit" labelText={item.groupLimit} />}
               {checkDate(convertDateTimeToLocale(item.eventDate)) && <Text className="text-base text-red-500">Event today</Text>}
             </View>
           )}
