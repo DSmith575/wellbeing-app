@@ -1,23 +1,22 @@
-import { View, Text } from "react-native";
-import useFormInput from "../../hooks/forms/useFormInput";
+import { View, Text, ActivityIndicator } from "react-native";
+import { useUserAuth } from "../../context/firebase/FirestoreAuthContext";
+import { handleFirebaseError } from "../../utils/firestore/firestoreErrors";
 import Input from "../../components/input/Input";
 import Button from "../../components/button/Button";
-import { useUserAuth } from "../../context/firebase/FirestoreAuthContext";
+import useFormInput from "../../hooks/forms/useFormInput";
 import useLoading from "../../hooks/loading/useLoading";
-import { useState } from "react";
-import { handleFirebaseError } from "../../utils/firestore/firestoreErrors";
-import { ActivityIndicator } from "react-native";
+import useError from "../../hooks/error/useError";
 
 const LoginForm = () => {
   const { login } = useUserAuth();
   const email = useFormInput("");
   const password = useFormInput("");
   const { loading, setLoading } = useLoading();
-  const [error, setError] = useState("");
+  const { error, setError } = useError();
 
   const handleSubmit = async () => {
     try {
-      setError("");
+      setError("login", "");
       setLoading("login", true);
       await login(email.value, password.value);
       email.reset();
