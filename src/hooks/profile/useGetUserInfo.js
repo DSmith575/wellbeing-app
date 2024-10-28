@@ -9,6 +9,10 @@ const useGetUserInfo = (userId) => {
 
   const getUserInfo = async () => {
     try {
+      if (!userId) {
+        return;
+      }
+
       setLoading("userInfo", true);
       const userData = await getFirebaseDocument(userCollection, userId);
 

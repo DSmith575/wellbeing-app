@@ -3,6 +3,7 @@ import LoginForm from "../../components/form/LoginForm";
 import { useUserAuth } from "../../context/firebase/FirestoreAuthContext";
 import Button from "../../components/button/Button";
 import useGetUserInfo from "../../hooks/profile/useGetUserInfo";
+import Spinner from "../../components/spinner/Spinner";
 
 const Profile = () => {
   const { user, logout } = useUserAuth();
@@ -10,41 +11,27 @@ const Profile = () => {
 
   return (
     <>
-      {!user && userInfo !== undefined ? (
+      {!user ? (
         <LoginForm />
       ) : (
-        <View className={"flex justify-center items-center relative"}>
-          <Text className={"text-2xl text-gray-800 font-bold"}>Welcome {userInfo?.firstName}</Text>
-          <Button
-            onPress={logout}
-            text="Logout"
-            accessibilityLabel="Logout button"
-            accessibilityHint="Tap to logout"
-            styles={"bg-blue-400 py-2 px-4 rounded inline-flex items-center absolute top-4 right-4"}>
-            <Text className="text-white">Logout</Text>
-          </Button>
-        </View>
+        <>
+          {loading("userInfo") ? (
+            <Spinner />
+          ) : (
+            <View className={"flex justify-center items-center relative"}>
+              <Text className={"text-2xl text-gray-800 font-bold"}>Welcome {userInfo?.firstName}</Text>
+              <Button
+                onPress={logout}
+                text="Logout"
+                accessibilityLabel="Logout button"
+                accessibilityHint="Tap to logout"
+                styles={"bg-blue-400 py-2 px-4 rounded inline-flex items-center absolute top-4 right-4"}>
+                <Text className="text-white">Logout</Text>
+              </Button>
+            </View>
+          )}
+        </>
       )}
-
-      {/* {user ? (
-        loading("userInfo") ? (
-          <ActivityIndicator size="large" color="#0000ff" />
-        ) : (
-          <View className={"flex justify-center items-center relative"}>
-            <Text className={"text-2xl text-gray-800 font-bold"}>Welcome {userInfo?.firstName}</Text>
-            <Button
-              onPress={logout}
-              text="Logout"
-              accessibilityLabel="Logout button"
-              accessibilityHint="Tap to logout"
-              styles={"bg-blue-400 py-2 px-4 rounded inline-flex items-center absolute top-4 right-4"}>
-              <Text className="text-white">Logout</Text>
-            </Button>
-          </View>
-        )
-      ) : (
-        <LoginForm />
-      )} */}
     </>
   );
 };
