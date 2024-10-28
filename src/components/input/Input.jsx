@@ -16,7 +16,7 @@ const Input = ({
 }) => {
   return (
     <View className={"w-10/12"}>
-      {label && <Text className={"text-xl text-slate-500 mb-2"}>{label}</Text>}
+      {label && <Text className={"block mb-2 text-sm font-medium text-slate-500"}>{label}</Text>}
       <TextInput
         type={type}
         placeholder={placeholder}

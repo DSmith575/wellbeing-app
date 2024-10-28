@@ -8,7 +8,7 @@ const AccessibleButton = ({ onPress, text, accessibilityLabel, accessibilityHint
       accessibilityHint={accessibilityHint}
       accessibilityRole="button"
       className={styles}>
-      <Text className={"text-lg text-gray-800 font-bold"}>{text}</Text>
+      <Text className={"text-lg text-white text-center"}>{text}</Text>
     </TouchableOpacity>
   );
 };

@@ -2,30 +2,31 @@ import QrScanner from "../../components/qrScanner/QrScanner";
 import ExploreEvents from "../../screens/events/ExploreEvents";
 import Profile from "../../screens/profile/Profile";
 import Records from "../../screens/records/Records";
+import { routerLabels } from "./routerLabels";
 
 export const routes = [
   {
-    name: "Explore Events",
+    name: routerLabels.events.name,
     component: ExploreEvents,
-    label: "Explore Events",
-    icon: "home",
+    label: routerLabels.events.name,
+    icon: routerLabels.events.icon,
   },
   {
-    name: "Event Scanner",
+    name: routerLabels.scanner.name,
     component: QrScanner,
-    label: "Event Scanner",
-    icon: "qrcode-scan",
+    label: routerLabels.scanner.name,
+    icon: routerLabels.scanner.icon,
   },
   {
-    name: "My Hauora",
+    name: routerLabels.records.name,
     component: Records,
-    label: "My Hauora",
-    icon: "chart-bell-curve-cumulative",
+    label: routerLabels.records.name,
+    icon: routerLabels.records.icon,
   },
   {
-    name: "Profile",
+    name: routerLabels.profile.name,
     component: Profile,
-    label: "Profile",
-    icon: "account",
+    label: routerLabels.profile.name,
+    icon: routerLabels.profile.icon,
   },
 ];
