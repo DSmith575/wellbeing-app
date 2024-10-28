@@ -1,5 +1,5 @@
-import QrScanner from "../../components/qrScanner/QrScanner";
 import ExploreEvents from "../../screens/events/ExploreEvents";
+import EventScanner from "../../screens/scanner/EventScanner";
 import Profile from "../../screens/profile/Profile";
 import Records from "../../screens/records/Records";
 import { routerLabels } from "./routerLabels";
@@ -13,7 +13,7 @@ export const routes = [
   },
   {
     name: routerLabels.scanner.name,
-    component: QrScanner,
+    component: EventScanner,
     label: routerLabels.scanner.name,
     icon: routerLabels.scanner.icon,
   },

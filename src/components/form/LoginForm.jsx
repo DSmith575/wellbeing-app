@@ -62,11 +62,15 @@ const LoginForm = () => {
         />
         <Button
           onPress={handleSubmit}
-          text={loading("login") ? <ActivityIndicator size="small" color="#fff" /> : "Login"}
           accessibilityLabel="Login button"
           accessibilityHint="Tap to login"
-          styles={"w-10/12 bg-blue-600 py-2 px-4 rounded-lg inline-flex items-center"}
-        />
+          styles={"w-10/12 bg-blue-600 py-2 px-4 rounded-lg inline-flex items-center"}>
+          {loading("login") ? (
+            <ActivityIndicator size="small" className={"h-8"} />
+          ) : (
+            <Text className="text-lg text-white text-center h-8">Login</Text>
+          )}
+        </Button>
       </View>
     </View>
   );

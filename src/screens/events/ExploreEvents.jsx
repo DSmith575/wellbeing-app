@@ -10,10 +10,7 @@ const ExploreEvents = () => {
   return (
     <>
       {!user ? (
-        <View className={"flex-1 justify-center"}>
-          <Text className={"font-bold text-center items-center justify-center"}>You must be logged in to view this page</Text>
-          <LoginForm />
-        </View>
+        <LoginForm />
       ) : (
         <>
           {loading("eventData") && <ActivityIndicator size={"large"} />}

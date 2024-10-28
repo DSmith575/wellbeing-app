@@ -1,6 +1,6 @@
-import { TouchableOpacity, Text } from "react-native";
+import { TouchableOpacity } from "react-native";
 
-const AccessibleButton = ({ onPress, text, accessibilityLabel, accessibilityHint, styles }) => {
+const AccessibleButton = ({ onPress, children, accessibilityLabel, accessibilityHint, styles }) => {
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -8,7 +8,7 @@ const AccessibleButton = ({ onPress, text, accessibilityLabel, accessibilityHint
       accessibilityHint={accessibilityHint}
       accessibilityRole="button"
       className={styles}>
-      <Text className={"text-lg text-white text-center"}>{text}</Text>
+      {children}
     </TouchableOpacity>
   );
 };

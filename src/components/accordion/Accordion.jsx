@@ -6,6 +6,7 @@ import useAccordion from "../../hooks/accordion/useAccordion";
 import useAccordionToggle from "../../hooks/accordion/useAccordionToggle";
 import useGetUserInfo from "../../hooks/profile/useGetUserInfo";
 import { useUserAuth } from "../../context/firebase/FirestoreAuthContext";
+import Spinner from "../spinner/Spinner";
 
 const Accordion = ({ showRecordData, shouldFilterByDate }) => {
   const { sections, loading } = useAccordion(showRecordData, shouldFilterByDate);
@@ -52,9 +53,7 @@ const Accordion = ({ showRecordData, shouldFilterByDate }) => {
   return (
     <>
       {loading("eventData") ? (
-        <View className={"flex-1"}>
-          <ActivityIndicator size={"large"} />
-        </View>
+        <Spinner />
       ) : (
         <SectionList
           sections={sections}
