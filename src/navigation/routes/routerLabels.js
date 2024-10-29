@@ -15,4 +15,12 @@ export const routerLabels = {
     name: "Profile",
     icon: "account",
   },
+  login: {
+    name: "Login",
+    icon: "login",
+  },
+  home: {
+    name: "Home",
+    icon: "home",
+  },
 };

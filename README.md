@@ -5,28 +5,30 @@ Firebase Rules
 service cloud.firestore {
   match /databases/{database}/documents {
 	match /users/{userId} {
-      allow read, write: if request.auth != null &&
-      get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
-      }
+  allow read, write: if request.auth != null && (
+        request.auth.uid == userId || 
+        (get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin' && 
+        exists(/databases/$(database)/documents/users/$(request.auth.uid)))
+        );
+        }
       
   match /events/{eventId} {
-      // Only authenticated users can read event details
-      allow read: if request.auth != null;
+      allow read;
       
       // Only admin users can create events
       allow create: if request.auth != null &&
       exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
       get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role != null &&
-      get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    	get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
 
       // Only admin users can delete events
       allow delete: if request.auth != null &&
       exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
       get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role != null &&
-      get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    	get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
 
       // Admins can update the entire event, and non-admin users can only update the 'signedUp' field to join the event
-	  allow update: if request.auth != null &&
+			allow update: if request.auth != null &&
     	(
       // Admins can update anything
       get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin'

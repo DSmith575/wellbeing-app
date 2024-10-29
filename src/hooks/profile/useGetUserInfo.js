@@ -9,26 +9,26 @@ const useGetUserInfo = (userId) => {
 
   const getUserInfo = async () => {
     try {
-      if (!userId) {
-        return;
-      }
-
       setLoading("userInfo", true);
-      const userData = await getFirebaseDocument(userCollection, userId);
 
+      const userData = await getFirebaseDocument(userCollection, userId);
       setUserInfo(userData);
     } catch (error) {
-      console.error("Error getting user info", error);
+      console.log("getUserInfo", error);
     } finally {
       setLoading("userInfo", false);
     }
   };
 
+  const reset = () => {
+    return setUserInfo({});
+  };
+
   useEffect(() => {
     getUserInfo();
-  }, [userId]);
+  }, []);
 
-  return { userInfo, loading };
+  return { userInfo, loading, reset };
 };
 
 export default useGetUserInfo;

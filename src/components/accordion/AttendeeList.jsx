@@ -2,7 +2,7 @@ import { ActivityIndicator, ScrollView, Text, View } from "react-native";
 import useGetAttendeesList from "../../hooks/accordion/useGetAttendeesList";
 
 const AttendeeList = ({ attendees }) => {
-  const { attendedUsers, loading } = useGetAttendeesList(attendees); // Use `attendedUsers` as returned by the hook
+  const { attendedUsers, loading } = useGetAttendeesList(attendees);
   return (
     <View>
       {loading("attendeesList") ? (

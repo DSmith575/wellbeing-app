@@ -49,6 +49,7 @@ const useAccordion = (showRecordData, shouldFilterByDate) => {
           });
 
           setSections(initializedSections);
+          // Putting this loading in a finally causes the spinner to never show
           setLoading("eventData", false);
         },
       });

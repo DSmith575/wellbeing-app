@@ -1,11 +1,7 @@
 import QrScanner from "../../components/qrScanner/QrScanner";
-import { useUserAuth } from "../../context/firebase/FirestoreAuthContext";
-import LoginForm from "../../components/form/LoginForm";
 
 const EventScanner = () => {
-  const { user } = useUserAuth();
-
-  return <>{!user ? <LoginForm /> : <QrScanner />}</>;
+  return <QrScanner />;
 };
 
 export default EventScanner;

@@ -2,6 +2,7 @@ import ExploreEvents from "../../screens/events/ExploreEvents";
 import EventScanner from "../../screens/scanner/EventScanner";
 import Profile from "../../screens/profile/Profile";
 import Records from "../../screens/records/Records";
+import Login from "../../screens/auth/Login";
 import { routerLabels } from "./routerLabels";
 
 export const routes = [
@@ -28,5 +29,11 @@ export const routes = [
     component: Profile,
     label: routerLabels.profile.name,
     icon: routerLabels.profile.icon,
+  },
+  {
+    name: routerLabels.login.name,
+    component: Login,
+    label: routerLabels.login.name,
+    icon: routerLabels.login.icon,
   },
 ];
