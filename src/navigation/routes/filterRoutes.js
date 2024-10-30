@@ -11,6 +11,6 @@ const ignoredUnauthenticatedRoutes = [
 ];
 
 export const filterRoutes = (routes, user) => {
-  const ignoredRoutes = user ? ignoredAuthenticatedRoutes : ignoredUnauthenticatedRoutes;
+  let ignoredRoutes = user ? ignoredAuthenticatedRoutes : ignoredUnauthenticatedRoutes;
   return routes.filter((route) => !ignoredRoutes.includes(route.name));
 };

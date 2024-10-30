@@ -7,6 +7,9 @@ import useLoading from "../../hooks/loading/useLoading";
 import { eventCollection } from "../../utils/constants/constants";
 import { checkDate, convertDateTimeToLocale } from "../../utils/dateTime/dateTimeFunctions";
 import { getFirebaseDocument, joinEvent } from "../../utils/firestore/firestoreFunctions";
+import { alertMessages } from "../../utils/constants/constants";
+import Spinner from "../spinner/Spinner";
+import customAlert from "../alert/Alert";
 
 const QrScanner = () => {
   const { user } = useUserAuth();
@@ -27,16 +30,16 @@ const QrScanner = () => {
   );
 
   if (permission === null) {
-    return <Text>Loading...</Text>;
+    return <Spinner />;
   }
 
   if (!permission.granted) {
     return (
       <SafeAreaView className="flex-1 justify-center items-center p-4">
         <View className="gap-5">
-          <Text className="text-xl text-gray-700">Camera access is required to scan.</Text>
+          <Text className="text-xl text-gray-700">{alertMessages.cameraAccess}</Text>
           <TouchableOpacity onPress={requestPermission} className="bg-blue-500 p-3 rounded">
-            <Text className="text-white text-lg text-center">Allow Camera Access</Text>
+            <Text className="text-white text-lg text-center">{alertMessages.allowCamera}</Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>
@@ -63,56 +66,61 @@ const QrScanner = () => {
       const eventDateCheck = checkDate(eventDate);
 
       if (!eventDateCheck) {
-        Alert.alert("Error", "Event is not on today or has ended", [
-          {
-            text: "OK",
-            onPress: () => {
-              setScanningEnabled(true);
-            },
+        customAlert({
+          title: docData.eventName,
+          message: alertMessages.eventNotAvailable,
+          buttonText: "OK",
+          onTouch: () => {
+            setScanningEnabled(true);
           },
-        ]);
+        });
         return;
       }
 
       if (!docData || !docData.eventName) {
-        Alert.alert("Error", "Event name is not available");
+        customAlert({
+          title: alertMessages.error,
+          message: alertMessages.eventNameError,
+          buttonText: "OK",
+          onTouch: () => {
+            setScanningEnabled(true);
+          },
+        });
         return;
       }
 
       if (docData.signedUp.includes(user)) {
-        Alert.alert("Error", "You have already signed up for this event", [
-          {
-            text: "OK",
-            onPress: () => {
-              setScanningEnabled(true);
-            },
+        customAlert({
+          title: docData.eventName,
+          message: alertMessages.alreadySignedUp,
+          buttonText: "OK",
+          onTouch: () => {
+            setScanningEnabled(true);
           },
-        ]);
+        });
         return;
       }
 
       if (docData.signedUp.length >= docData.groupLimit) {
-        Alert.alert("Error", "Event is full", [
-          {
-            text: "OK",
-            onPress: () => {
-              setScanningEnabled(true);
-            },
+        customAlert({
+          title: docData.eventName,
+          message: alertMessages.eventFull,
+          buttonText: "OK",
+          onTouch: () => {
+            setScanningEnabled(true);
           },
-        ]);
+        });
         return;
       }
 
-      Alert.alert(docData.eventName, `${docData.signedUp.length} out of ${docData.groupLimit} spots filled`, [
-        {
-          text: "Join",
-          onPress: async () => {
-            await joinEvent(eventCollection, data.data, user);
-
-            setScanningEnabled(true);
-          },
+      customAlert({
+        title: docData.eventName,
+        message: "Code successfully scanned",
+        buttonText: "OK",
+        onTouch: () => {
+          setScanningEnabled(true);
         },
-      ]);
+      });
     } catch (error) {
       Alert.alert("Error", error.message);
       setScanningEnabled(true);
