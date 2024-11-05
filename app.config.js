@@ -14,10 +14,10 @@ export default {
     slug: "wellbeing-app",
     version: "1.0.0",
     orientation: "portrait",
-    icon: "./assets/icon.png",
+    icon: "./assets/splashScreen/icon.png",
     userInterfaceStyle: "light",
     splash: {
-      image: "./assets/icon.png",
+      image: "./assets/splashScreen/icon.png",
       resizeMode: "contain",
       backgroundColor: "#0e5aa5",
     },
@@ -26,12 +26,12 @@ export default {
     },
     android: {
       adaptiveIcon: {
-        foregroundImage: "./assets/adaptive-icon.png",
+        foregroundImage: "./assets/splashScreen/adaptive-icon.png",
         backgroundColor: "#ffffff",
       },
     },
     web: {
-      favicon: "./assets/favicon.png",
+      favicon: "./assets/splashScreen/icon.png",
     },
     extra: {
       apiKey: process.env.API_KEY,
