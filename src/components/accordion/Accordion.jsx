@@ -5,8 +5,8 @@ import AttendeeList from "./AttendeeList";
 import useAccordion from "../../hooks/accordion/useAccordion";
 import useAccordionToggle from "../../hooks/accordion/useAccordionToggle";
 import Spinner from "../spinner/Spinner";
-import scribble from "../../../assets/svg/scribble.svg";
 import SvgComponent from "./Scribble";
+
 const Accordion = ({ showRecordData, shouldFilterByDate }) => {
   const { sections, loading } = useAccordion(showRecordData, shouldFilterByDate);
   const { collapsedSections, toggleSection } = useAccordionToggle(sections);
