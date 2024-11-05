@@ -32,7 +32,6 @@ const useAccordion = (showRecordData, shouldFilterByDate) => {
           const initializedSections = eventCategories.map((category) => ({
             title: category.label,
             headerUri: category.uri,
-            backgroundColor: "bg-black",
             data: [],
           }));
 
@@ -43,7 +42,6 @@ const useAccordion = (showRecordData, shouldFilterByDate) => {
             if (section) {
               section.data.push({
                 ...event,
-                backgroundColor: "bg-sky-300",
               });
             }
           });

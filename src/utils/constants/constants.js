@@ -12,6 +12,11 @@ export const alertMessages = {
   qrInvalid: "Invalid QR code.",
 };
 
+export const userRoles = {
+  admin: "admin",
+  user: "user",
+};
+
 export const eventCategories = [
   {
     label: "Taha Wairua (Spiritual)",

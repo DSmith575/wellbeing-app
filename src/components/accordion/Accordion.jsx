@@ -1,11 +1,12 @@
-import { View, Text, SectionList, TouchableOpacity, ImageBackground, ActivityIndicator } from "react-native";
+import { View, Text, SectionList, TouchableOpacity, ImageBackground } from "react-native";
 import { checkDate, convertDateTimeToLocale } from "../../utils/dateTime/dateTimeFunctions";
 import AccordionEventItem from "./AccordionEventItem";
 import AttendeeList from "./AttendeeList";
 import useAccordion from "../../hooks/accordion/useAccordion";
 import useAccordionToggle from "../../hooks/accordion/useAccordionToggle";
 import Spinner from "../spinner/Spinner";
-
+import scribble from "../../../assets/svg/scribble.svg";
+import SvgComponent from "./Scribble";
 const Accordion = ({ showRecordData, shouldFilterByDate }) => {
   const { sections, loading } = useAccordion(showRecordData, shouldFilterByDate);
   const { collapsedSections, toggleSection } = useAccordionToggle(sections);
@@ -25,18 +26,31 @@ const Accordion = ({ showRecordData, shouldFilterByDate }) => {
 
     return (
       <>
-        <View className={"bg-slate-100 border rounded-lg p-3 my-1 mx-4 shadow-lg relative"}>
-          <View className={`${item.backgroundColor} h-8 w-8 rounded-full absolute top-2 right-2`} />
-          <AccordionEventItem headerText="Event" labelText={item.eventName} />
-          <AccordionEventItem headerText="Date" labelText={convertDateTimeToLocale(item.eventDate)} />
+        <View className={"bg-slate-50 rounded-lg p-3 my-1 mx-4 shadow-lg relative overflow-hidden"}>
+          <AccordionEventItem labelText={item.eventName} styles={"text-center items-center"} />
+          <AccordionEventItem labelText={convertDateTimeToLocale(item.eventDate)} styles={"text-center items-center"} />
           {showRecordData ? (
             <AttendeeList attendees={item.signedUp} />
           ) : (
-            <View>
-              <Text>{item.eventRecurrence}</Text>
-              {item.groupLimit > 0 && <AccordionEventItem headerText="Group Limit" labelText={item.groupLimit} />}
-              {checkDate(convertDateTimeToLocale(item.eventDate)) && <Text className="text-base text-red-500">Event today</Text>}
-            </View>
+            <>
+              <SvgComponent
+                width={80}
+                height={80}
+                strokeColor={item.colorPicker}
+                styles={"absolute -bottom-4 -left-4 rotate-180 scale-y-[-1]"}
+              />
+              <SvgComponent width={80} height={80} strokeColor={item.colorPicker} styles={"absolute -bottom-4 -right-4"} />
+              <AccordionEventItem labelText={item.eventLocation} styles={"text-center items-center"} />
+              <View className={"flex flex-row mt-4 justify-evenly"}>
+                {item.groupLimit > 0 && (
+                  <AccordionEventItem headerText={"Group"} labelText={item.groupLimit} styles={"col-start-3 row-start-2"} />
+                )}
+                <AccordionEventItem labelText={item.eventRecurrence} styles={""} />
+              </View>
+              {checkDate(convertDateTimeToLocale(item.eventDate)) && (
+                <Text className="text-base text-red-500 items-center text-center mt-2">Event today</Text>
+              )}
+            </>
           )}
         </View>
       </>

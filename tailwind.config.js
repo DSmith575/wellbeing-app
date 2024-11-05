@@ -4,5 +4,16 @@ module.exports = {
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }) {
+      addUtilities(
+        {
+          ".flip-x": {
+            transform: "scaleX(-1)",
+          },
+        },
+        ["responsive", "hover"], // Optionally add responsive or hover states
+      );
+    },
+  ],
 };
