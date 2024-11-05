@@ -28,7 +28,6 @@ const Accordion = ({ showRecordData, shouldFilterByDate }) => {
       <>
         <View className={"bg-slate-50 rounded-lg p-3 my-1 mx-4 shadow-lg relative overflow-hidden"}>
           <AccordionEventItem labelText={item.eventName} styles={"text-center items-center"} />
-          <AccordionEventItem labelText={convertDateTimeToLocale(item.eventDate)} styles={"text-center items-center"} />
           {showRecordData ? (
             <AttendeeList attendees={item.signedUp} />
           ) : (
@@ -40,6 +39,7 @@ const Accordion = ({ showRecordData, shouldFilterByDate }) => {
                 styles={"absolute -bottom-4 -left-4 rotate-180 scale-y-[-1]"}
               />
               <SvgComponent width={80} height={80} strokeColor={item.colorPicker} styles={"absolute -bottom-4 -right-4"} />
+              <AccordionEventItem labelText={convertDateTimeToLocale(item.eventDate)} styles={"text-center items-center"} />
               <AccordionEventItem labelText={item.eventLocation} styles={"text-center items-center"} />
               <View className={"flex flex-row mt-4 justify-evenly"}>
                 {item.groupLimit > 0 && (
