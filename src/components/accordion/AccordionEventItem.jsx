@@ -1,3 +1,13 @@
+/**
+ * Renders an item for the accordion component.
+ *
+ * @param {string} iconName - The name of the MaterialCommunityIcons icon.
+ * @param {string} labelText - The text to be displayed for the item.
+ * @param {string} styles - The additional styles to be applied to the container view.
+ * @param {string} textStyles - The additional styles to be applied to the text component.
+ * @returns {JSX.Element} - The rendered AccordionEventItem component.
+ */
+
 import { View, Text } from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 

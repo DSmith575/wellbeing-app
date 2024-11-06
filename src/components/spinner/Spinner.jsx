@@ -1,3 +1,8 @@
+/**
+ * A component that displays a spinner indicating loading or processing state.
+ * @returns {JSX.Element} The Spinner component.
+ */
+
 import { View, ActivityIndicator } from "react-native";
 
 const Spinner = () => {

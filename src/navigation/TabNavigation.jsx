@@ -1,3 +1,9 @@
+/**
+ * Renders the tab navigation component.
+ *
+ * @returns {JSX.Element} The tab navigation component.
+ */
+
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { routes } from "./routes/routes";
@@ -5,6 +11,7 @@ import { filterRoutes } from "./routes/filterRoutes";
 import { useUserAuth } from "../context/firebase/FirestoreAuthContext";
 import { useMemo } from "react";
 import { routerLabels } from "./routes/routerLabels";
+
 const Tab = createBottomTabNavigator();
 
 const TabNavigation = () => {

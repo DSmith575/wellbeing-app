@@ -1,3 +1,11 @@
+/**
+ * Renders a list of attendees with their attendance status.
+ *
+ * @component
+ * @param {Object[]} attendees - The list of attendees.
+ * @returns {JSX.Element} - The rendered component.
+ */
+
 import { ActivityIndicator, ScrollView, Text, View } from "react-native";
 import useGetAttendeesList from "../../hooks/accordion/useGetAttendeesList";
 

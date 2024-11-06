@@ -1,3 +1,10 @@
+/**
+ * Custom hook for managing accordion toggle functionality.
+ *
+ * @param {Array} sections - The sections of the accordion.
+ * @returns {Object} - An object containing the collapsedSections state and the toggleSection function.
+ */
+
 import { useState, useEffect } from "react";
 
 const useAccordionToggle = (sections) => {

@@ -1,5 +1,10 @@
-import { View } from "react-native";
+/**
+ * Renders the ExploreEvents screen.
+ * @returns {JSX.Element} The rendered ExploreEvents component.
+ */
+
 import Accordion from "../../components/accordion/Accordion";
+
 const ExploreEvents = () => {
   return (
     <>

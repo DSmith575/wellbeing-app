@@ -1,3 +1,10 @@
+/**
+ * Renders the Records component.
+ * This component displays the user's records based on their role.
+ *
+ * @returns {JSX.Element} The rendered Records component.
+ */
+
 import Accordion from "../../components/accordion/Accordion";
 import useGetUserInfo from "../../hooks/profile/useGetUserInfo";
 import { useUserAuth } from "../../context/firebase/FirestoreAuthContext";

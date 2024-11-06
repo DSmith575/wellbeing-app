@@ -1,3 +1,8 @@
+/**
+ * Firebase configuration file.
+ * @module firebaseConfig
+ */
+
 import Constants from "expo-constants";
 import { initializeApp } from "firebase/app";
 import { initializeAuth, getReactNativePersistence } from "firebase/auth";

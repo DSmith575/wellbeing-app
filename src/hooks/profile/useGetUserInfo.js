@@ -1,3 +1,10 @@
+/**
+ * Custom hook to fetch user information.
+ *
+ * @param {string} userId - The ID of the user.
+ * @returns {Object} - An object containing user information, loading state, and a reset function.
+ */
+
 import { useState, useEffect } from "react";
 import useLoading from "../loading/useLoading";
 import { getFirebaseDocument } from "../../utils/firestore/firestoreFunctions";

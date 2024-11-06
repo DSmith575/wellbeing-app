@@ -23,6 +23,17 @@ export const eventRecurrence = {
   oneTime: "One-off",
 };
 
+/**
+ * Array of event categories.
+ * @typedef {Object} EventCategory
+ * @property {string} label - The label of the category.
+ * @property {string} uri - The URI of the category image.
+ */
+
+/**
+ * Array of event categories.
+ * @type {EventCategory[]}
+ */
 export const eventCategories = [
   {
     label: "Taha Wairua (Spiritual)",

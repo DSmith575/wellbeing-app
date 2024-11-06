@@ -1,3 +1,22 @@
+/**
+ * A reusable input component.
+ *
+ * @component
+ * @param {string} label - The label for the input.
+ * @param {string} type - The type of the input.
+ * @param {string} placeholder - The placeholder text for the input.
+ * @param {string} value - The value of the input.
+ * @param {function} onChangeText - The callback function to handle text changes.
+ * @param {number} minLength - The minimum length of the input value.
+ * @param {number} maxLength - The maximum length of the input value.
+ * @param {string} accessibilityLabel - The accessibility label for the input.
+ * @param {string} accessibilityHint - The accessibility hint for the input.
+ * @param {string} accessibilityRole - The accessibility role for the input.
+ * @param {object} accessibilityState - The accessibility state for the input.
+ * @param {object} props - Additional props for the input component.
+ * @returns {JSX.Element} - The input component.
+ */
+
 import { TextInput, View, Text } from "react-native";
 
 const Input = ({

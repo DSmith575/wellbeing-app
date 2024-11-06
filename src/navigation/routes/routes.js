@@ -1,3 +1,13 @@
+/**
+ * Defines the routes for the navigation in the wellbeing app.
+ * Each route object contains the name, component, label, and icon properties.
+ * @typedef {Object} Route
+ * @property {string} name - The name of the route.
+ * @property {React.Component} component - The component associated with the route.
+ * @property {string} label - The label for the route.
+ * @property {string} icon - The icon for the route.
+ */
+
 import ExploreEvents from "../../screens/events/ExploreEvents";
 import EventScanner from "../../screens/scanner/EventScanner";
 import Profile from "../../screens/profile/Profile";
@@ -5,6 +15,10 @@ import Records from "../../screens/records/Records";
 import Login from "../../screens/auth/Login";
 import { routerLabels } from "./routerLabels";
 
+/**
+ * Array of route objects that define the navigation routes.
+ * @type {Route[]}
+ */
 export const routes = [
   {
     name: routerLabels.events.name,

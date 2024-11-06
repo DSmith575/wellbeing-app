@@ -1,3 +1,13 @@
+/**
+ * Renders an accordion component that displays a list of events with collapsible sections.
+ *
+ * @component
+ * @param {Object} props - The component props.
+ * @param {boolean} props.showRecordData - Determines whether to show detailed record data for each event.
+ * @param {boolean} props.shouldFilterByDate - Determines whether to filter events by date.
+ * @returns {JSX.Element} The rendered Accordion component.
+ */
+
 import { View, Text, SectionList, TouchableOpacity, ImageBackground } from "react-native";
 import {
   checkDate,
@@ -67,7 +77,7 @@ const Accordion = ({ showRecordData, shouldFilterByDate }) => {
               </View>
 
               {checkDate(convertDateTimeToLocale(item.eventDate)) && (
-                <Text className="text-base text-red-500 items-center text-center mt-2">Event today</Text>
+                <Text className="text-base text-red-500 items-center text-center mt-2 absolute top-5 right-4">Event today</Text>
               )}
 
               <View className={"flex flex-row justify-between"}>

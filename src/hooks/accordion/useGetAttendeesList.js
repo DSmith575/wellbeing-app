@@ -1,3 +1,10 @@
+/**
+ * Custom hook to fetch the list of attendees.
+ *
+ * @param {Array} attendees - The array of attendee IDs.
+ * @returns {Object} - An object containing the list of attended users and loading state.
+ */
+
 import { useState, useEffect } from "react";
 import useLoading from "../loading/useLoading";
 import { getFirebaseDocument } from "../../utils/firestore/firestoreFunctions";

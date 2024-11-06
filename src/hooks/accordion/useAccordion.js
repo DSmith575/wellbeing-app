@@ -1,3 +1,10 @@
+/**
+ * Custom hook for managing accordion functionality.
+ *
+ * @param {boolean} showRecordData - Flag indicating whether to show record data.
+ * @param {boolean} shouldFilterByDate - Flag indicating whether to filter events by date.
+ * @returns {object} - Object containing sections and loading state.
+ */
 import { useEffect, useState } from "react";
 import { getEvents } from "../../utils/firestore/firestoreFunctions";
 import { eventCollection, eventCategories } from "../../utils/constants/constants";

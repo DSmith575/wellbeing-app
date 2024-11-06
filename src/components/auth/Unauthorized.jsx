@@ -1,3 +1,10 @@
+/**
+ * Renders a component to display unauthorized access message.
+ * @param {Object} props - The component props.
+ * @param {string} props.text - The text to display.
+ * @returns {JSX.Element} - The rendered Unauthorized component.
+ */
+
 import { View, Text } from "react-native";
 
 const Unauthorized = ({ text }) => {

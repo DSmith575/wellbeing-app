@@ -1,3 +1,10 @@
+/**
+ * Filters the routes based on the user's authentication status.
+ *
+ * @param {Array} routes - The array of routes to be filtered.
+ * @param {Object} user - The user object containing authentication information.
+ * @returns {Array} - The filtered array of routes.
+ */
 import { routerLabels } from "./routerLabels";
 
 const ignoredAuthenticatedRoutes = [routerLabels.login.name];
@@ -11,6 +18,6 @@ const ignoredUnauthenticatedRoutes = [
 ];
 
 export const filterRoutes = (routes, user) => {
-  let ignoredRoutes = user ? ignoredAuthenticatedRoutes : ignoredUnauthenticatedRoutes;
+  const ignoredRoutes = user ? ignoredAuthenticatedRoutes : ignoredUnauthenticatedRoutes;
   return routes.filter((route) => !ignoredRoutes.includes(route.name));
 };

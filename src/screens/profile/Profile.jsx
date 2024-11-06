@@ -1,3 +1,8 @@
+/**
+ * Renders the user profile screen.
+ * @returns {JSX.Element} The profile screen component.
+ */
+
 import { View, Text } from "react-native";
 import { useUserAuth } from "../../context/firebase/FirestoreAuthContext";
 import Button from "../../components/button/Button";
