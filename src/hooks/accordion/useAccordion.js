@@ -7,7 +7,7 @@
  */
 import { useEffect, useState } from "react";
 import { getEvents } from "../../utils/firestore/firestoreFunctions";
-import { eventCollection, eventCategories } from "../../utils/constants/constants";
+import { eventCollection, eventCategories, firestoreCollections } from "../../utils/constants/constants";
 import { getCurrentDateTime, filteredEvents, sortedDates, recordSortedDates } from "../../utils/dateTime/dateTimeFunctions";
 import useLoading from "../loading/useLoading";
 
@@ -20,7 +20,7 @@ const useAccordion = (showRecordData, shouldFilterByDate) => {
       setLoading("eventData", true);
 
       await getEvents({
-        collectionName: eventCollection,
+        collectionName: firestoreCollections.events,
         callback: async (snapshot) => {
           const eventList = snapshot.docs.map((doc) => ({
             id: doc.id,

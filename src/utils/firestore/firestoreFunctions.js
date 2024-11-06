@@ -9,7 +9,6 @@ import { firestore } from "../../config/firebase";
  * @returns {function} - The unsubscribe function to stop listening for updates.
  * @throws {Error} - If there is an error retrieving the events.
  */
-
 export const getEvents = async ({ collectionName, callback }) => {
   try {
     const eventRef = collection(firestore, collectionName);
@@ -27,7 +26,6 @@ export const getEvents = async ({ collectionName, callback }) => {
  * @returns {Object} - The data of the retrieved document.
  * @throws {Error} - If the document does not exist or there is an error retrieving the document.
  */
-
 export const getFirebaseDocument = async (collectionName, docData) => {
   try {
     const collectionRef = doc(firestore, collectionName, docData);

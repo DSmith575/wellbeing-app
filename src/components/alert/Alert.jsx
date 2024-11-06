@@ -10,13 +10,13 @@
  */
 import { Alert } from "react-native";
 
-const customAlert = ({ title, message, buttonText, onTouch }) => {
+const QrScannerAlert = ({ title, message, onTouch }) => {
   return Alert.alert(title, message, [
     {
-      text: buttonText,
+      text: "OK",
       onPress: onTouch,
     },
   ]);
 };
 
-export default customAlert;
+export default QrScannerAlert;

@@ -21,7 +21,7 @@ import useAccordion from "../../hooks/accordion/useAccordion";
 import useAccordionToggle from "../../hooks/accordion/useAccordionToggle";
 import Spinner from "../spinner/Spinner";
 import SvgComponent from "./Scribble";
-import { eventRecurrence } from "../../utils/constants/constants";
+import { findEventRecurrenceIcon } from "../../utils/accordion/accordionIcons";
 
 const Accordion = ({ showRecordData, shouldFilterByDate }) => {
   const { sections, loading } = useAccordion(showRecordData, shouldFilterByDate);
@@ -104,13 +104,7 @@ const Accordion = ({ showRecordData, shouldFilterByDate }) => {
                   <AccordionEventItem
                     labelText={item.eventRecurrence}
                     styles={""}
-                    iconName={
-                      item.eventRecurrence === eventRecurrence.challenge
-                        ? "repeat"
-                        : item.eventRecurrence === eventRecurrence.recurring
-                          ? "autorenew"
-                          : "calendar-check"
-                    }
+                    iconName={findEventRecurrenceIcon(item.eventRecurrence)}
                   />
                 </View>
               </View>

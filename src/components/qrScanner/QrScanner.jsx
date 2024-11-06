@@ -1,15 +1,15 @@
 import { useState, useCallback } from "react";
-import { Text, View, TouchableOpacity, Alert, SafeAreaView, ActivityIndicator, Vibration } from "react-native";
+import { Text, View, TouchableOpacity, SafeAreaView, ActivityIndicator, Vibration } from "react-native";
 import { CameraView, useCameraPermissions } from "expo-camera";
 import { useFocusEffect } from "@react-navigation/native";
 import { useUserAuth } from "../../context/firebase/FirestoreAuthContext";
-import useLoading from "../../hooks/loading/useLoading";
-import { eventCollection } from "../../utils/constants/constants";
-import { checkDate, convertDateTimeToLocale } from "../../utils/dateTime/dateTimeFunctions";
+import { firestoreCollections } from "../../utils/constants/constants";
 import { getFirebaseDocument, joinEvent } from "../../utils/firestore/firestoreFunctions";
+import { checkDate, convertDateTimeToLocale } from "../../utils/dateTime/dateTimeFunctions";
 import { alertMessages } from "../../utils/constants/constants";
 import Spinner from "../spinner/Spinner";
-import customAlert from "../alert/Alert";
+import useLoading from "../../hooks/loading/useLoading";
+import QrScannerAlert from "../alert/Alert";
 
 const QrScanner = () => {
   const { user } = useUserAuth();
@@ -53,77 +53,44 @@ const QrScanner = () => {
       Vibration.vibrate();
       setScanningEnabled(false);
 
-      const docData = await getFirebaseDocument(eventCollection, data.data);
+      const docData = await getFirebaseDocument(firestoreCollections.events, data.data);
 
-      // if (!docSnap.exists()) {
-      //   Alert.alert("Error", "QR Code is invalid");
-      //   return;
-      //
-      // }
-
-      const eventDate = convertDateTimeToLocale(docData.eventDate);
-
-      const eventDateCheck = checkDate(eventDate);
-
-      if (!eventDateCheck) {
-        customAlert({
-          title: docData.eventName,
-          message: alertMessages.eventNotAvailable,
-          buttonText: "OK",
-          onTouch: () => {
-            setScanningEnabled(true);
-          },
-        });
-        return;
+      // Check if the data or event name is not available
+      if (!docData || !docData.eventName) {
+        return showScanAlert({ title: alertMessages.error, message: alertMessages.eventNameError });
       }
 
-      if (!docData || !docData.eventName) {
-        customAlert({
-          title: alertMessages.error,
-          message: alertMessages.eventNameError,
-          buttonText: "OK",
-          onTouch: () => {
-            setScanningEnabled(true);
-          },
+      // Get the event date and check if it is valid
+      const eventDate = convertDateTimeToLocale(docData.eventDate);
+
+      if (!checkDate(eventDate)) {
+        return QrScannerAlert({
+          title: docData.eventName,
+          message: alertMessages.eventNotAvailable,
+          onTouch: () => setScanningEnabled(true),
         });
-        return;
       }
 
       if (docData.signedUp.includes(user)) {
-        customAlert({
+        return QrScannerAlert({
           title: docData.eventName,
           message: alertMessages.alreadySignedUp,
-          buttonText: "OK",
-          onTouch: () => {
-            setScanningEnabled(true);
-          },
+          onTouch: () => setScanningEnabled(true),
         });
-        return;
       }
 
       if (docData.signedUp.length >= docData.groupLimit) {
-        customAlert({
+        return QrScannerAlert({
           title: docData.eventName,
           message: alertMessages.eventFull,
-          buttonText: "OK",
-          onTouch: () => {
-            setScanningEnabled(true);
-          },
+          onTouch: () => setScanningEnabled(true),
         });
-        return;
       }
 
-      customAlert({
-        title: docData.eventName,
-        message: "Code successfully scanned",
-        buttonText: "OK",
-        onTouch: () => {
-          setScanningEnabled(true);
-        },
-      });
+      await joinEvent(firestoreCollections.events, data.data, user);
+      QrScannerAlert({ title: docData.eventName, message: alertMessages.success, onTouch: () => setScanningEnabled(true) });
     } catch (error) {
-      Alert.alert("Error", error.message);
-      setScanningEnabled(true);
+      showScanAlert({ title: alertMessages.error, message: error.message });
     } finally {
       setLoading("scanning", false);
     }

@@ -8,7 +8,7 @@
 import { useState, useEffect } from "react";
 import useLoading from "../loading/useLoading";
 import { getFirebaseDocument } from "../../utils/firestore/firestoreFunctions";
-import { userCollection } from "../../utils/constants/constants";
+import { firestoreCollections, userCollection } from "../../utils/constants/constants";
 
 const useGetUserInfo = (userId) => {
   const [userInfo, setUserInfo] = useState({});
@@ -18,7 +18,7 @@ const useGetUserInfo = (userId) => {
     try {
       setLoading("userInfo", true);
 
-      const userData = await getFirebaseDocument(userCollection, userId);
+      const userData = await getFirebaseDocument(firestoreCollections.users, userId);
       setUserInfo(userData);
     } catch (error) {
       console.log("getUserInfo", error);

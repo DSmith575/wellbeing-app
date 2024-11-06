@@ -1,7 +1,10 @@
-export const eventCollection = "events";
-export const userCollection = "users";
+export const firestoreCollections = {
+  events: "events",
+  users: "users",
+};
 
 export const alertMessages = {
+  success: "Event joined successfully",
   cameraAccess: "Camera access is required to scan.",
   allowCamera: "Allow Camera Access",
   eventNotAvailable: "Event is not on today or has ended.",
@@ -17,11 +20,20 @@ export const userRoles = {
   user: "user",
 };
 
-export const eventRecurrence = {
-  challenge: "Challenge",
-  recurring: "Recurring",
-  oneTime: "One-off",
-};
+export const eventRecurrence = [
+  {
+    label: "Challenge",
+    iconName: "puzzle-outline",
+  },
+  {
+    label: "Recurring",
+    iconName: "autorenew",
+  },
+  {
+    label: "One-off",
+    iconName: "calendar-check",
+  },
+];
 
 /**
  * Array of event categories.
