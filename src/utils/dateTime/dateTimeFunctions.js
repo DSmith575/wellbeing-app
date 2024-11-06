@@ -7,6 +7,26 @@ export const convertDateTimeToLocale = (date) => {
   return date.toDate().toLocaleString("en-NZ");
 };
 
+export const splitDateGetTime = (date) => {
+  return date.toDate().toLocaleTimeString("en-NZ");
+};
+
+export const splitDateGetCalendarDate = (date) => {
+  const calendarDate = date.toDate().toDateString("en-NZ").split(",")[0].split(" ");
+  console.log(calendarDate);
+
+  const calendarDates = {
+    day: calendarDate[0],
+    month: calendarDate[1],
+    date: calendarDate[2],
+    year: calendarDate[3],
+  };
+
+  return calendarDates;
+
+  // return calendarDates;
+};
+
 export const filteredEvents = (eventList, currentDate) => {
   return eventList.filter((event) => event.eventDate.toDate() >= currentDate);
 };

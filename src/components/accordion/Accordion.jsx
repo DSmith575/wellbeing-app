@@ -1,11 +1,17 @@
 import { View, Text, SectionList, TouchableOpacity, ImageBackground } from "react-native";
-import { checkDate, convertDateTimeToLocale } from "../../utils/dateTime/dateTimeFunctions";
+import {
+  checkDate,
+  convertDateTimeToLocale,
+  splitDateGetTime,
+  splitDateGetCalendarDate,
+} from "../../utils/dateTime/dateTimeFunctions";
 import AccordionEventItem from "./AccordionEventItem";
 import AttendeeList from "./AttendeeList";
 import useAccordion from "../../hooks/accordion/useAccordion";
 import useAccordionToggle from "../../hooks/accordion/useAccordionToggle";
 import Spinner from "../spinner/Spinner";
 import SvgComponent from "./Scribble";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 const Accordion = ({ showRecordData, shouldFilterByDate }) => {
   const { sections, loading } = useAccordion(showRecordData, shouldFilterByDate);
@@ -26,20 +32,25 @@ const Accordion = ({ showRecordData, shouldFilterByDate }) => {
 
     return (
       <>
-        <View className={"bg-slate-50 rounded-lg p-3 my-1 mx-4 shadow-lg relative overflow-hidden"}>
+        <View className={"bg-slate-100 h-72 rounded-lg p-3 my-1 mx-4 shadow-lg relative overflow-hidden flex"}>
           <AccordionEventItem labelText={item.eventName} styles={"text-center items-center"} />
           {showRecordData ? (
             <AttendeeList attendees={item.signedUp} />
           ) : (
             <>
-              <SvgComponent
-                width={80}
-                height={80}
-                strokeColor={item.colorPicker}
-                styles={"absolute -bottom-4 -left-4 rotate-180 scale-y-[-1]"}
-              />
               <SvgComponent width={80} height={80} strokeColor={item.colorPicker} styles={"absolute -bottom-4 -right-4"} />
-              <AccordionEventItem labelText={convertDateTimeToLocale(item.eventDate)} styles={"text-center items-center"} />
+
+              <View className={"absolute rounded-md backdrop-blur-lg top-2 left-4"}>
+                <AccordionEventItem
+                  labelText={splitDateGetCalendarDate(item.eventDate).date}
+                  styles={"text-center items-center"}
+                />
+                <AccordionEventItem
+                  labelText={splitDateGetCalendarDate(item.eventDate).month}
+                  styles={"text-center items-center"}
+                />
+              </View>
+
               <AccordionEventItem labelText={item.eventLocation} styles={"text-center items-center"} />
               <View className={"flex flex-row mt-4 justify-evenly"}>
                 {item.groupLimit > 0 && (
@@ -50,6 +61,18 @@ const Accordion = ({ showRecordData, shouldFilterByDate }) => {
               {checkDate(convertDateTimeToLocale(item.eventDate)) && (
                 <Text className="text-base text-red-500 items-center text-center mt-2">Event today</Text>
               )}
+
+              <View className={"flex justify-start"}>
+                <View className={"flex flex-row mb-2"}>
+                  <MaterialCommunityIcons name="map-marker-outline" size={24} color="black" />
+                  <AccordionEventItem labelText={item.eventLocation} styles={"text-center items-center ml-2"} />
+                </View>
+
+                <View className={"flex flex-row"}>
+                  <MaterialCommunityIcons name="clock-outline" size={24} color="black" />
+                  <AccordionEventItem labelText={splitDateGetTime(item.eventDate)} styles={"text-center items-center ml-2"} />
+                </View>
+              </View>
             </>
           )}
         </View>
