@@ -5,7 +5,9 @@ const AccordionEventItem = ({ iconName, labelText, styles, textStyles }) => {
   return (
     <View className={`${styles} flex flex-row items-center text-center`}>
       <MaterialCommunityIcons name={iconName} size={24} color="black" />
-      <Text className={`${textStyles} ml-2 font-light`}>{labelText} </Text>
+      <Text className={`font-light ml-1 ${textStyles}`} numberOfLines={1}>
+        {labelText}{" "}
+      </Text>
     </View>
   );
 };

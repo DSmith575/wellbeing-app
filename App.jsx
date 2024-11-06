@@ -15,7 +15,7 @@ export const App = () => {
     <>
       <View onLayout={onLayoutRootView} />
       <AuthContextProvider>
-        <StatusBar style="auto" />
+        <StatusBar style={"auto"} />
         <Navigation />
       </AuthContextProvider>
     </>

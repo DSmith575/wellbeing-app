@@ -11,15 +11,14 @@ import useAccordion from "../../hooks/accordion/useAccordion";
 import useAccordionToggle from "../../hooks/accordion/useAccordionToggle";
 import Spinner from "../spinner/Spinner";
 import SvgComponent from "./Scribble";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { eventRecurrence } from "../../utils/constants/constants";
 
 const Accordion = ({ showRecordData, shouldFilterByDate }) => {
   const { sections, loading } = useAccordion(showRecordData, shouldFilterByDate);
   const { collapsedSections, toggleSection } = useAccordionToggle(sections);
 
-  const renderSectionHeader = ({ section: { title, backgroundColor, headerUri } }) => (
-    <ImageBackground source={headerUri} className="px-4 py-4 my-2 rounded-md mx-4" resizeMode="cover">
+  const renderSectionHeader = ({ section: { title, headerUri } }) => (
+    <ImageBackground source={headerUri} className="px-4 py-4 my-2 rounded-md" resizeMode="cover">
       <TouchableOpacity onPress={() => toggleSection(title)} className={""}>
         <Text className="text-black font-thin text-md py-4">{title}</Text>
       </TouchableOpacity>
@@ -33,66 +32,75 @@ const Accordion = ({ showRecordData, shouldFilterByDate }) => {
 
     return (
       <>
-        {/* <View style={{backgroundColor: item.colorPicker}} className={`rounded-lg p-3 my-1 mx-4 shadow-lg relative overflow-hidden flex align-middle justify-center`}> */}
+        {/* <View style={{backgroundColor: item.colorPicker}} className={`rounded-lg p-3 pt-1 mb-2 h-40 my-1 mx-2 relative overflow-hidden flex justify-between`}> */}
         <View
-          className={
-            "bg-slate-200  rounded-lg p-3 my-1 mx-4 shadow-lg relative overflow-hidden flex align-middle justify-center"
-          }>
-          <AccordionEventItem labelText={item.eventName} styles={"text-center items-center justify-center"} />
+          className={`bg-slate-200 rounded-lg px-2 pb-1 pt-1 mb-2 h-40 my-1 mx-2 relative overflow-hidden flex ${showRecordData ? "" : "justify-between"}`}>
+          <AccordionEventItem labelText={item.eventName} styles={"text-center"} textStyles={"font-medium text-lg w-64"} />
+          <SvgComponent
+            width={160}
+            height={160}
+            strokeColor={item.colorPicker}
+            styles={"absolute -bottom-4 right-36 opacity-5"}
+          />
           {showRecordData ? (
-            <AttendeeList attendees={item.signedUp} />
+            <>
+              <AccordionEventItem
+                labelText={convertDateTimeToLocale(item.eventDate)}
+                styles={"text-center items-center m-0 p-0"}
+              />
+              <AttendeeList attendees={item.signedUp} />
+            </>
           ) : (
             <>
-              <SvgComponent width={80} height={80} strokeColor={item.colorPicker} styles={"absolute -bottom-4 -right-4"} />
-
-              <View className={"absolute rounded-md backdrop-blur-lg top-2 left-4"}>
+              <View className={"absolute rounded-md backdrop-blur-lg top-1 right-5 flex flex-row text-center"}>
                 <AccordionEventItem
                   labelText={splitDateGetCalendarDate(item.eventDate).date}
+                  iconName={"calendar-outline"}
                   styles={"text-center items-center"}
+                  textStyles={"font-bold"}
                 />
                 <AccordionEventItem
                   labelText={splitDateGetCalendarDate(item.eventDate).month}
                   styles={"text-center items-center"}
+                  textStyles={"font-bold"}
                 />
               </View>
 
-              {/* <AccordionEventItem labelText={item.eventLocation} styles={"text-center items-center"} /> */}
-              <View className={"flex flex-row mt-4 justify-evenly"}>
-                <AccordionEventItem
-                  labelText={item.groupLimit > 0 ? item.groupLimit : "No Limit"}
-                  styles={""}
-                  iconName={"account-group"}
-                />
-                <AccordionEventItem
-                  labelText={item.eventRecurrence}
-                  styles={""}
-                  iconName={
-                    item.eventRecurrence === eventRecurrence.challenge
-                      ? "repeat"
-                      : item.eventRecurrence === eventRecurrence.recurring
-                        ? "autorenew"
-                        : "calendar-check"
-                  }
-                />
-              </View>
               {checkDate(convertDateTimeToLocale(item.eventDate)) && (
                 <Text className="text-base text-red-500 items-center text-center mt-2">Event today</Text>
               )}
 
-              <View className={"flex justify-start"}>
-                <View className={"flex flex-row mb-2"}>
+              <View className={"flex flex-row justify-between"}>
+                <View className={"flex"}>
                   <AccordionEventItem
                     labelText={item.eventLocation}
-                    styles={"text-center items-center ml-2"}
+                    styles={"text-center items-center"}
                     iconName={"map-marker-outline"}
+                  />
+
+                  <AccordionEventItem
+                    labelText={splitDateGetTime(item.eventDate)}
+                    styles={"text-center items-center"}
+                    iconName={"clock-outline"}
                   />
                 </View>
 
-                <View className={"flex flex-row"}>
+                <View className={"flex"}>
                   <AccordionEventItem
-                    labelText={splitDateGetTime(item.eventDate)}
-                    styles={"text-center items-center ml-2"}
-                    iconName={"clock-outline"}
+                    labelText={item.groupLimit > 0 ? item.groupLimit : "No Limit"}
+                    styles={""}
+                    iconName={"account-group"}
+                  />
+                  <AccordionEventItem
+                    labelText={item.eventRecurrence}
+                    styles={""}
+                    iconName={
+                      item.eventRecurrence === eventRecurrence.challenge
+                        ? "repeat"
+                        : item.eventRecurrence === eventRecurrence.recurring
+                          ? "autorenew"
+                          : "calendar-check"
+                    }
                   />
                 </View>
               </View>

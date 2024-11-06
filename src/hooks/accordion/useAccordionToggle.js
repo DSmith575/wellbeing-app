@@ -6,7 +6,7 @@ const useAccordionToggle = (sections) => {
   useEffect(() => {
     if (sections.length > 0) {
       const initialState = sections.reduce((acc, section) => {
-        acc[section.title] = false;
+        acc[section.title] = true;
         return acc;
       }, {});
       setCollapsedSections(initialState);

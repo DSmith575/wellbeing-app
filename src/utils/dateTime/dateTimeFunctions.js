@@ -8,7 +8,7 @@ export const convertDateTimeToLocale = (date) => {
 };
 
 export const splitDateGetTime = (date) => {
-  return date.toDate().toLocaleTimeString("en-NZ");
+  return date.toDate().toLocaleTimeString("en-NZ", { hour: "2-digit", minute: "2-digit" }).toUpperCase();
 };
 
 export const splitDateGetCalendarDate = (date) => {
