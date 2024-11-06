@@ -12,7 +12,7 @@ module.exports = {
             transform: "scaleX(-1)",
           },
         },
-        ["responsive", "hover"], // Optionally add responsive or hover states
+        ["responsive", "hover"],
       );
     },
   ],

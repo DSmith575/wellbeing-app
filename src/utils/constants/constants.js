@@ -17,6 +17,12 @@ export const userRoles = {
   user: "user",
 };
 
+export const eventRecurrence = {
+  challenge: "Challenge",
+  recurring: "Recurring",
+  oneTime: "One-off",
+};
+
 export const eventCategories = [
   {
     label: "Taha Wairua (Spiritual)",

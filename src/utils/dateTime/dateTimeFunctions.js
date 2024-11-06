@@ -13,7 +13,6 @@ export const splitDateGetTime = (date) => {
 
 export const splitDateGetCalendarDate = (date) => {
   const calendarDate = date.toDate().toDateString("en-NZ").split(",")[0].split(" ");
-  console.log(calendarDate);
 
   const calendarDates = {
     day: calendarDate[0],
@@ -23,8 +22,6 @@ export const splitDateGetCalendarDate = (date) => {
   };
 
   return calendarDates;
-
-  // return calendarDates;
 };
 
 export const filteredEvents = (eventList, currentDate) => {
@@ -38,7 +35,7 @@ export const checkDate = (date) => {
 };
 
 export const sortedDates = (date) => {
-  return date.sort((a, b) => a.eventDate.toDate() - b.eventDate.toDate());
+  return date.sort((a, b) => b.eventDate.toDate() - a.eventDate.toDate());
 };
 
 export const recordSortedDates = (events) => {

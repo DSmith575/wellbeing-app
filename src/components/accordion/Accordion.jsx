@@ -12,6 +12,7 @@ import useAccordionToggle from "../../hooks/accordion/useAccordionToggle";
 import Spinner from "../spinner/Spinner";
 import SvgComponent from "./Scribble";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { eventRecurrence } from "../../utils/constants/constants";
 
 const Accordion = ({ showRecordData, shouldFilterByDate }) => {
   const { sections, loading } = useAccordion(showRecordData, shouldFilterByDate);
@@ -32,8 +33,12 @@ const Accordion = ({ showRecordData, shouldFilterByDate }) => {
 
     return (
       <>
-        <View className={"bg-slate-100 h-72 rounded-lg p-3 my-1 mx-4 shadow-lg relative overflow-hidden flex"}>
-          <AccordionEventItem labelText={item.eventName} styles={"text-center items-center"} />
+        {/* <View style={{backgroundColor: item.colorPicker}} className={`rounded-lg p-3 my-1 mx-4 shadow-lg relative overflow-hidden flex align-middle justify-center`}> */}
+        <View
+          className={
+            "bg-slate-200  rounded-lg p-3 my-1 mx-4 shadow-lg relative overflow-hidden flex align-middle justify-center"
+          }>
+          <AccordionEventItem labelText={item.eventName} styles={"text-center items-center justify-center"} />
           {showRecordData ? (
             <AttendeeList attendees={item.signedUp} />
           ) : (
@@ -51,12 +56,24 @@ const Accordion = ({ showRecordData, shouldFilterByDate }) => {
                 />
               </View>
 
-              <AccordionEventItem labelText={item.eventLocation} styles={"text-center items-center"} />
+              {/* <AccordionEventItem labelText={item.eventLocation} styles={"text-center items-center"} /> */}
               <View className={"flex flex-row mt-4 justify-evenly"}>
-                {item.groupLimit > 0 && (
-                  <AccordionEventItem headerText={"Group"} labelText={item.groupLimit} styles={"col-start-3 row-start-2"} />
-                )}
-                <AccordionEventItem labelText={item.eventRecurrence} styles={""} />
+                <AccordionEventItem
+                  labelText={item.groupLimit > 0 ? item.groupLimit : "No Limit"}
+                  styles={""}
+                  iconName={"account-group"}
+                />
+                <AccordionEventItem
+                  labelText={item.eventRecurrence}
+                  styles={""}
+                  iconName={
+                    item.eventRecurrence === eventRecurrence.challenge
+                      ? "repeat"
+                      : item.eventRecurrence === eventRecurrence.recurring
+                        ? "autorenew"
+                        : "calendar-check"
+                  }
+                />
               </View>
               {checkDate(convertDateTimeToLocale(item.eventDate)) && (
                 <Text className="text-base text-red-500 items-center text-center mt-2">Event today</Text>
@@ -64,13 +81,19 @@ const Accordion = ({ showRecordData, shouldFilterByDate }) => {
 
               <View className={"flex justify-start"}>
                 <View className={"flex flex-row mb-2"}>
-                  <MaterialCommunityIcons name="map-marker-outline" size={24} color="black" />
-                  <AccordionEventItem labelText={item.eventLocation} styles={"text-center items-center ml-2"} />
+                  <AccordionEventItem
+                    labelText={item.eventLocation}
+                    styles={"text-center items-center ml-2"}
+                    iconName={"map-marker-outline"}
+                  />
                 </View>
 
                 <View className={"flex flex-row"}>
-                  <MaterialCommunityIcons name="clock-outline" size={24} color="black" />
-                  <AccordionEventItem labelText={splitDateGetTime(item.eventDate)} styles={"text-center items-center ml-2"} />
+                  <AccordionEventItem
+                    labelText={splitDateGetTime(item.eventDate)}
+                    styles={"text-center items-center ml-2"}
+                    iconName={"clock-outline"}
+                  />
                 </View>
               </View>
             </>
