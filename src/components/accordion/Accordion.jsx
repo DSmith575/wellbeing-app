@@ -9,6 +9,8 @@
  */
 
 import { View, Text, SectionList, TouchableOpacity, ImageBackground } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
+
 import {
   checkDate,
   convertDateTimeToLocale,
@@ -42,15 +44,16 @@ const Accordion = ({ showRecordData, shouldFilterByDate }) => {
 
     return (
       <>
-        {/* <View style={{backgroundColor: item.colorPicker}} className={`rounded-lg p-3 pt-1 mb-2 h-40 my-1 mx-2 relative overflow-hidden flex justify-between`}> */}
-        <View
-          className={`bg-slate-200 rounded-lg px-2 pb-1 pt-1 mb-2 h-40 my-1 mx-2 relative overflow-hidden flex ${showRecordData ? "" : "justify-between"}`}>
+        <LinearGradient
+          colors={item.eventColor}
+          end={{ x: 0.1, y: 1 }}
+          className={`bg-gradient-to-tr from-teal-300 to-cyan-300 rounded-lg p-3 pt-1 mb-2 h-40 my-1 mx-2 relative overflow-hidden flex justify-between`}>
           <AccordionEventItem labelText={item.eventName} styles={"text-center"} textStyles={"font-medium text-lg w-64"} />
           <SvgComponent
             width={160}
             height={160}
             strokeColor={item.colorPicker}
-            styles={"absolute -bottom-4 right-36 opacity-5"}
+            styles={"absolute -bottom-4 right-24 opacity-5 rotate-90"}
           />
           {showRecordData ? (
             <>
@@ -62,23 +65,30 @@ const Accordion = ({ showRecordData, shouldFilterByDate }) => {
             </>
           ) : (
             <>
-              <View className={"absolute rounded-md backdrop-blur-lg top-1 right-5 flex flex-row text-center"}>
-                <AccordionEventItem
-                  labelText={splitDateGetCalendarDate(item.eventDate).date}
-                  iconName={"calendar-outline"}
-                  styles={"text-center items-center"}
-                  textStyles={"font-bold"}
-                />
-                <AccordionEventItem
-                  labelText={splitDateGetCalendarDate(item.eventDate).month}
-                  styles={"text-center items-center"}
-                  textStyles={"font-bold"}
-                />
-              </View>
+              <View className={"absolute rounded-md backdrop-blur-lg top-1 right-5 flex flex-col text-center"}>
+                <View className={"flex flex-row"}>
+                  <AccordionEventItem
+                    labelText={splitDateGetCalendarDate(item.eventDate).date}
+                    iconName={"calendar-outline"}
+                    styles={"text-center items-center"}
+                    textStyles={"font-bold"}
+                  />
+                  <AccordionEventItem
+                    labelText={splitDateGetCalendarDate(item.eventDate).month}
+                    styles={"text-center items-center"}
+                    textStyles={"font-bold"}
+                  />
+                </View>
 
-              {checkDate(convertDateTimeToLocale(item.eventDate)) && (
-                <Text className="text-base text-red-500 items-center text-center mt-2 absolute top-5 right-4">Event today</Text>
-              )}
+                {checkDate(convertDateTimeToLocale(item.eventDate)) && (
+                  <AccordionEventItem
+                    labelText={"Today"}
+                    styles={"text-center items-center"}
+                    textStyles={"text-red-500 font-bold ml-3"}
+                    iconName={"alert-box-outline"}
+                  />
+                )}
+              </View>
 
               <View className={"flex flex-row justify-between"}>
                 <View className={"flex"}>
@@ -110,7 +120,7 @@ const Accordion = ({ showRecordData, shouldFilterByDate }) => {
               </View>
             </>
           )}
-        </View>
+        </LinearGradient>
       </>
     );
   };
