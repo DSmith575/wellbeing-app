@@ -6,6 +6,8 @@
  * @returns {JSX.Element} - The rendered component.
  */
 
+// MOVE TO WEB PORTAL
+
 import { ActivityIndicator, ScrollView, Text, View } from "react-native";
 import useGetAttendeesList from "../../hooks/accordion/useGetAttendeesList";
 

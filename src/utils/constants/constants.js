@@ -49,22 +49,22 @@ export const eventRecurrence = [
 export const eventCategories = [
   {
     label: "Taha Wairua (Spiritual)",
-    uri: require("../../../assets/accordionBanners/cat_meow.jpg"),
+    uri: require("../../../assets/accordionBanners/otagoLogoBanner.png"),
   },
   {
     label: "Taha Hinengaro (Mental and Emotional)",
-    uri: require("../../../assets/accordionBanners/smol_cat.png"),
+    uri: require("../../../assets/accordionBanners/otagoLogoBanner.png"),
   },
   {
     label: "Taha Whānau (Family and Social)",
-    uri: require("../../../assets/accordionBanners/assetTestBanner.jpg"),
+    uri: require("../../../assets/accordionBanners/otagoLogoBanner.png"),
   },
   {
     label: "Taha Tinana (Physical)",
-    uri: require("../../../assets/accordionBanners/this_cat.jpg"),
+    uri: require("../../../assets/accordionBanners/otagoLogoBanner.png"),
   },
   {
     label: "Whenua (Land, Roots)",
-    uri: require("../../../assets/accordionBanners/black_cat.jpg"),
+    uri: require("../../../assets/accordionBanners/otagoLogoBanner.png"),
   },
 ];

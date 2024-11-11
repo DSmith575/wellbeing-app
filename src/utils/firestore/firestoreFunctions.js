@@ -1,4 +1,4 @@
-import { collection, query, onSnapshot, doc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
+import { collection, query, onSnapshot, doc, getDoc, updateDoc, arrayUnion, getDocs, where } from "firebase/firestore";
 import { firestore } from "../../config/firebase";
 
 /**
@@ -58,5 +58,19 @@ export const joinEvent = async (collectionName, docData, user) => {
     });
   } catch (error) {
     throw new Error("Error joining event", error);
+  }
+};
+
+export const queryUserJoinedEvents = async (collectionName, user) => {
+  try {
+    if (!user) {
+      return [];
+    }
+    const collectionRef = collection(firestore, collectionName);
+    const queryRef = query(collectionRef, where("signedUp", "array-contains", user));
+    const querySnapshot = await getDocs(queryRef);
+    return querySnapshot.docs.map((doc) => doc.data());
+  } catch (error) {
+    console.error(error);
   }
 };

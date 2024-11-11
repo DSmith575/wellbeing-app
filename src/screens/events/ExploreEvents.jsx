@@ -4,13 +4,11 @@
  */
 
 import Accordion from "../../components/accordion/Accordion";
+import { useUserAuth } from "../../context/firebase/FirestoreAuthContext";
 
 const ExploreEvents = () => {
-  return (
-    <>
-      <Accordion showRecordData={false} shouldFilterByDate={true} />
-    </>
-  );
+  const { user } = useUserAuth();
+  return <>{user && <Accordion showRecordData={false} shouldFilterByDate={true} />}</>;
 };
 
 export default ExploreEvents;

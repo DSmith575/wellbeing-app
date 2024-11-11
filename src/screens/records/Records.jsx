@@ -15,17 +15,17 @@ import Spinner from "../../components/spinner/Spinner";
 const Records = () => {
   const { user } = useUserAuth();
   const { userInfo, loading } = useGetUserInfo(user);
-
+  // console.log(userInfo)
   return (
     <>
       {loading("userInfo") ? (
         <Spinner />
       ) : (
         <>
-          {userInfo && userInfo.role !== userRoles.admin ? (
-            <Unauthorized text={"You are not authorized to view this page"} />
-          ) : (
+          {user === userInfo.userId ? (
             <Accordion showRecordData={true} shouldFilterByDate={false} />
+          ) : (
+            <Unauthorized text={"You are not authorized to view this page"} />
           )}
         </>
       )}

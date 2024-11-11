@@ -6,12 +6,12 @@
  * @returns {object} - Object containing sections and loading state.
  */
 import { useEffect, useState } from "react";
-import { getEvents } from "../../utils/firestore/firestoreFunctions";
-import { eventCollection, eventCategories, firestoreCollections } from "../../utils/constants/constants";
-import { getCurrentDateTime, filteredEvents, sortedDates, recordSortedDates } from "../../utils/dateTime/dateTimeFunctions";
+import { getEvents, queryUserJoinedEvents } from "../../utils/firestore/firestoreFunctions";
+import { eventCategories, firestoreCollections } from "../../utils/constants/constants";
+import { getCurrentDateTime, filteredEvents, sortedDates } from "../../utils/dateTime/dateTimeFunctions";
 import useLoading from "../loading/useLoading";
 
-const useAccordion = (showRecordData, shouldFilterByDate) => {
+const useAccordion = (user, showRecordData, shouldFilterByDate) => {
   const [sections, setSections] = useState([]);
   const { loading, setLoading } = useLoading();
 
@@ -34,7 +34,9 @@ const useAccordion = (showRecordData, shouldFilterByDate) => {
             filterEvents = filteredEvents(eventList, currentDate);
           }
 
-          const sortedEvents = showRecordData ? recordSortedDates(filterEvents) : sortedDates(filterEvents);
+          const userRecords = await queryUserJoinedEvents(firestoreCollections.events, user);
+
+          const sortedEvents = showRecordData ? userRecords : sortedDates(filterEvents);
 
           const initializedSections = eventCategories.map((category) => ({
             title: category.label,

@@ -72,12 +72,3 @@ export const checkDate = (date) => {
 export const sortedDates = (date) => {
   return date.sort((a, b) => b.eventDate.toDate() - a.eventDate.toDate());
 };
-
-/**
- * Sorts an array of events in descending order based on the event date.
- * @param {Array} events - The array of events to be sorted.
- * @returns {Array} The sorted array of events.
- */
-export const recordSortedDates = (events) => {
-  return events.sort((a, b) => b.eventDate.toDate().getTime() - a.eventDate.toDate().getTime());
-};

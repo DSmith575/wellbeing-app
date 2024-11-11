@@ -24,9 +24,12 @@ import useAccordionToggle from "../../hooks/accordion/useAccordionToggle";
 import Spinner from "../spinner/Spinner";
 import SvgComponent from "./Scribble";
 import { findEventRecurrenceIcon } from "../../utils/accordion/accordionIcons";
+import { useUserAuth } from "../../context/firebase/FirestoreAuthContext";
+import useGetUserInfo from "../../hooks/profile/useGetUserInfo";
 
 const Accordion = ({ showRecordData, shouldFilterByDate }) => {
-  const { sections, loading } = useAccordion(showRecordData, shouldFilterByDate);
+  const { user } = useUserAuth();
+  const { sections, loading } = useAccordion(user, showRecordData, shouldFilterByDate);
   const { collapsedSections, toggleSection } = useAccordionToggle(sections);
 
   const renderSectionHeader = ({ section: { title, headerUri } }) => (
@@ -55,71 +58,52 @@ const Accordion = ({ showRecordData, shouldFilterByDate }) => {
             strokeColor={item.colorPicker}
             styles={"absolute -bottom-4 right-24 opacity-5 rotate-90"}
           />
-          {showRecordData ? (
-            <>
-              <AccordionEventItem
-                labelText={convertDateTimeToLocale(item.eventDate)}
-                styles={"text-center items-center m-0 p-0"}
-              />
-              <AttendeeList attendees={item.signedUp} />
-            </>
-          ) : (
-            <>
-              <View className={"absolute rounded-md backdrop-blur-lg top-1 right-5 flex flex-col text-center"}>
-                <View className={"flex flex-row"}>
-                  <AccordionEventItem
-                    labelText={splitDateGetCalendarDate(item.eventDate).date}
-                    iconName={"calendar-outline"}
-                    styles={"text-center items-center"}
-                    textStyles={"font-bold"}
-                  />
-                  <AccordionEventItem
-                    labelText={splitDateGetCalendarDate(item.eventDate).month}
-                    styles={"text-center items-center"}
-                    textStyles={"font-bold"}
-                  />
-                </View>
 
-                {checkDate(convertDateTimeToLocale(item.eventDate)) && (
+          <View className={"absolute rounded-md backdrop-blur-lg top-1 right-4 flex flex-col text-center"}>
+            <View className={"flex flex-row"}>
+              <AccordionEventItem
+                labelText={splitDateGetCalendarDate(item.eventDate).date}
+                iconName={"calendar-outline"}
+                styles={"text-center items-center"}
+                textStyles={"font-bold"}
+              />
+              <AccordionEventItem
+                labelText={splitDateGetCalendarDate(item.eventDate).month}
+                styles={"text-center items-center"}
+                textStyles={"font-bold"}
+              />
+            </View>
+
+            {/* {checkDate(convertDateTimeToLocale(item.eventDate)) && (
                   <AccordionEventItem
                     labelText={"Today"}
                     styles={"text-center items-center"}
                     textStyles={"text-red-500 font-bold ml-3"}
                     iconName={"alert-box-outline"}
                   />
-                )}
-              </View>
+                )} */}
+          </View>
 
-              <View className={"flex flex-row justify-between"}>
-                <View className={"flex"}>
-                  <AccordionEventItem
-                    labelText={item.eventLocation}
-                    styles={"text-center items-center"}
-                    iconName={"map-marker-outline"}
-                  />
+          <View className={"flex flex-row justify-between"}>
+            <View className={"flex"}>
+              <AccordionEventItem labelText={item.eventLocation} iconName={"map-marker-outline"} />
 
-                  <AccordionEventItem
-                    labelText={splitDateGetTime(item.eventDate)}
-                    styles={"text-center items-center"}
-                    iconName={"clock-outline"}
-                  />
-                </View>
+              <AccordionEventItem labelText={splitDateGetTime(item.eventDate)} iconName={"clock-outline"} />
+            </View>
 
-                <View className={"flex"}>
-                  <AccordionEventItem
-                    labelText={item.groupLimit > 0 ? item.groupLimit : "No Limit"}
-                    styles={""}
-                    iconName={"account-group"}
-                  />
-                  <AccordionEventItem
-                    labelText={item.eventRecurrence}
-                    styles={""}
-                    iconName={findEventRecurrenceIcon(item.eventRecurrence)}
-                  />
-                </View>
-              </View>
-            </>
-          )}
+            <View className={"flex"}>
+              <AccordionEventItem
+                labelText={item.groupLimit > 0 ? item.groupLimit : "No Limit"}
+                styles={""}
+                iconName={"account-group"}
+              />
+              <AccordionEventItem
+                labelText={item.eventRecurrence}
+                styles={""}
+                iconName={findEventRecurrenceIcon(item.eventRecurrence)}
+              />
+            </View>
+          </View>
         </LinearGradient>
       </>
     );
