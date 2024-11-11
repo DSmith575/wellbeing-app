@@ -25,7 +25,6 @@ import Spinner from "../spinner/Spinner";
 import SvgComponent from "./Scribble";
 import { findEventRecurrenceIcon } from "../../utils/accordion/accordionIcons";
 import { useUserAuth } from "../../context/firebase/FirestoreAuthContext";
-import useGetUserInfo from "../../hooks/profile/useGetUserInfo";
 
 const Accordion = ({ showRecordData, shouldFilterByDate }) => {
   const { user } = useUserAuth();
@@ -50,8 +49,17 @@ const Accordion = ({ showRecordData, shouldFilterByDate }) => {
         <LinearGradient
           colors={item.eventColor}
           end={{ x: 0.1, y: 1 }}
-          className={`bg-gradient-to-tr from-teal-300 to-cyan-300 rounded-lg p-3 pt-1 mb-2 h-40 my-1 mx-2 relative overflow-hidden flex justify-between`}>
-          <AccordionEventItem labelText={item.eventName} styles={"text-center"} textStyles={"font-medium text-lg w-64"} />
+          className={`bg-gradient-to-tr from-teal-300 to-cyan-300 rounded-lg p-3 pt-1 mb-2 h-40 my-1 mx-2 overflow-hidden flex justify-between`}>
+          <View className={"flex flex-row justify-between"}>
+            <AccordionEventItem labelText={item.eventName} styles={""} textStyles={"font-medium text-lg w-64 justify-start"} />
+
+            <AccordionEventItem
+              labelText={`${splitDateGetCalendarDate(item.eventDate).date} ${splitDateGetCalendarDate(item.eventDate).month}`}
+              iconName={"calendar-outline"}
+              styles={"items-center justify-end"}
+              textStyles={"font-bold items-center"}
+            />
+          </View>
           <SvgComponent
             width={160}
             height={160}
@@ -59,49 +67,26 @@ const Accordion = ({ showRecordData, shouldFilterByDate }) => {
             styles={"absolute -bottom-4 right-24 opacity-5 rotate-90"}
           />
 
-          <View className={"absolute rounded-md backdrop-blur-lg top-1 right-4 flex flex-col text-center"}>
-            <View className={"flex flex-row"}>
+          <View className={"flex flex-row"}>
+            {checkDate(convertDateTimeToLocale(item.eventDate)) && (
               <AccordionEventItem
-                labelText={splitDateGetCalendarDate(item.eventDate).date}
-                iconName={"calendar-outline"}
+                labelText={"EVENT TODAY"}
                 styles={"text-center items-center"}
-                textStyles={"font-bold"}
+                textStyles={"text-red-500 font-bold"}
+                iconName={"alert-box-outline"}
               />
-              <AccordionEventItem
-                labelText={splitDateGetCalendarDate(item.eventDate).month}
-                styles={"text-center items-center"}
-                textStyles={"font-bold"}
-              />
-            </View>
-
-            {/* {checkDate(convertDateTimeToLocale(item.eventDate)) && (
-                  <AccordionEventItem
-                    labelText={"Today"}
-                    styles={"text-center items-center"}
-                    textStyles={"text-red-500 font-bold ml-3"}
-                    iconName={"alert-box-outline"}
-                  />
-                )} */}
+            )}
           </View>
 
           <View className={"flex flex-row justify-between"}>
             <View className={"flex"}>
               <AccordionEventItem labelText={item.eventLocation} iconName={"map-marker-outline"} />
-
               <AccordionEventItem labelText={splitDateGetTime(item.eventDate)} iconName={"clock-outline"} />
             </View>
 
             <View className={"flex"}>
-              <AccordionEventItem
-                labelText={item.groupLimit > 0 ? item.groupLimit : "No Limit"}
-                styles={""}
-                iconName={"account-group"}
-              />
-              <AccordionEventItem
-                labelText={item.eventRecurrence}
-                styles={""}
-                iconName={findEventRecurrenceIcon(item.eventRecurrence)}
-              />
+              <AccordionEventItem labelText={item.groupLimit > 0 ? item.groupLimit : "No Limit"} iconName={"account-group"} />
+              <AccordionEventItem labelText={item.eventRecurrence} iconName={findEventRecurrenceIcon(item.eventRecurrence)} />
             </View>
           </View>
         </LinearGradient>

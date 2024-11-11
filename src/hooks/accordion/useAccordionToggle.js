@@ -5,7 +5,7 @@
  * @returns {Object} - An object containing the collapsedSections state and the toggleSection function.
  */
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 const useAccordionToggle = (sections) => {
   const [collapsedSections, setCollapsedSections] = useState({});
@@ -20,12 +20,12 @@ const useAccordionToggle = (sections) => {
     }
   }, [sections]);
 
-  const toggleSection = (title) => {
+  const toggleSection = useCallback((title) => {
     setCollapsedSections((prev) => ({
       ...prev,
       [title]: !prev[title],
     }));
-  };
+  }, []);
 
   return { collapsedSections, toggleSection };
 };

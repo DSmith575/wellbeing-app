@@ -18,7 +18,6 @@ const useAccordion = (user, showRecordData, shouldFilterByDate) => {
   const getEventData = async () => {
     try {
       setLoading("eventData", true);
-
       await getEvents({
         collectionName: firestoreCollections.events,
         callback: async (snapshot) => {
@@ -28,13 +27,17 @@ const useAccordion = (user, showRecordData, shouldFilterByDate) => {
           }));
 
           let filterEvents = eventList;
+          let userRecords = [];
 
           if (shouldFilterByDate) {
             const currentDate = getCurrentDateTime();
             filterEvents = filteredEvents(eventList, currentDate);
+            console.log("filteredEvents", filterEvents);
           }
 
-          const userRecords = await queryUserJoinedEvents(firestoreCollections.events, user);
+          if (showRecordData) {
+            userRecords = await queryUserJoinedEvents(firestoreCollections.events, user);
+          }
 
           const sortedEvents = showRecordData ? userRecords : sortedDates(filterEvents);
 

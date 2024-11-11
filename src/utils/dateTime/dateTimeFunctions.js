@@ -3,8 +3,7 @@
  * @returns {Date} The current date and time.
  */
 export const getCurrentDateTime = () => {
-  const currentDateTime = new Date();
-  return currentDateTime;
+  return new Date().toLocaleString("en-NZ");
 };
 
 /**
@@ -13,6 +12,7 @@ export const getCurrentDateTime = () => {
  * @returns {string} The locale-specific string representation of the date.
  */
 export const convertDateTimeToLocale = (date) => {
+  console.log("checkToday", date);
   return date.toDate().toLocaleString("en-NZ");
 };
 
@@ -50,7 +50,7 @@ export const splitDateGetCalendarDate = (date) => {
  * @returns {Array} The filtered array of events.
  */
 export const filteredEvents = (eventList, currentDate) => {
-  return eventList.filter((event) => event.eventDate.toDate() >= currentDate);
+  return eventList.filter((event) => event.eventEndDate.toDate() >= currentDate);
 };
 
 /**
@@ -59,8 +59,10 @@ export const filteredEvents = (eventList, currentDate) => {
  * @returns {boolean} True if the given date is the current date, false otherwise.
  */
 export const checkDate = (date) => {
-  const currentDate = new Date().toLocaleString().split(",")[0];
-  const eventDate = date.split(",")[0];
+  const currentDate = new Date().toLocaleString();
+  const eventDate = date;
+  console.log("curentDate", currentDate);
+  console.log("eventDate", eventDate);
   return eventDate === currentDate;
 };
 
