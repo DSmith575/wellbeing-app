@@ -21,10 +21,11 @@ const useAccordion = (user, showRecordData, shouldFilterByDate) => {
       await getEvents({
         collectionName: firestoreCollections.events,
         callback: async (snapshot) => {
-          const eventList = snapshot.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-          }));
+          const eventList =
+            snapshot?.docs?.map((doc) => ({
+              id: doc.id,
+              ...doc.data(),
+            })) || [];
 
           let filterEvents = eventList;
           let userRecords = [];
@@ -32,7 +33,6 @@ const useAccordion = (user, showRecordData, shouldFilterByDate) => {
           if (shouldFilterByDate) {
             const currentDate = getCurrentDateTime();
             filterEvents = filteredEvents(eventList, currentDate);
-            console.log("filteredEvents", filterEvents);
           }
 
           if (showRecordData) {
@@ -48,13 +48,12 @@ const useAccordion = (user, showRecordData, shouldFilterByDate) => {
           }));
 
           sortedEvents.forEach((event) => {
-            const category = event.eventCategory;
-            const section = initializedSections.find((sec) => sec.title === category);
-
-            if (section) {
-              section.data.push({
-                ...event,
-              });
+            const category = event?.eventCategory;
+            if (category) {
+              const section = initializedSections.find((sec) => sec.title === category);
+              if (section) {
+                section.data.push({ ...event });
+              }
             }
           });
 

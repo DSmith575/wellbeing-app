@@ -18,7 +18,6 @@ import {
   splitDateGetCalendarDate,
 } from "../../utils/dateTime/dateTimeFunctions";
 import AccordionEventItem from "./AccordionEventItem";
-import AttendeeList from "./AttendeeList";
 import useAccordion from "../../hooks/accordion/useAccordion";
 import useAccordionToggle from "../../hooks/accordion/useAccordionToggle";
 import Spinner from "../spinner/Spinner";
@@ -51,7 +50,7 @@ const Accordion = ({ showRecordData, shouldFilterByDate }) => {
           end={{ x: 0.1, y: 1 }}
           className={`bg-gradient-to-tr from-teal-300 to-cyan-300 rounded-lg p-3 pt-1 mb-2 h-40 my-1 mx-2 overflow-hidden flex justify-between`}>
           <View className={"flex flex-row justify-between"}>
-            <AccordionEventItem labelText={item.eventName} styles={""} textStyles={"font-medium text-lg w-64 justify-start"} />
+            <AccordionEventItem labelText={item.eventName} textStyles={"font-medium text-lg w-64 justify-start"} />
 
             <AccordionEventItem
               labelText={`${splitDateGetCalendarDate(item.eventDate).date} ${splitDateGetCalendarDate(item.eventDate).month}`}
@@ -60,6 +59,7 @@ const Accordion = ({ showRecordData, shouldFilterByDate }) => {
               textStyles={"font-bold items-center"}
             />
           </View>
+
           <SvgComponent
             width={160}
             height={160}
@@ -67,21 +67,28 @@ const Accordion = ({ showRecordData, shouldFilterByDate }) => {
             styles={"absolute -bottom-4 right-24 opacity-5 rotate-90"}
           />
 
-          <View className={"flex flex-row"}>
-            {checkDate(convertDateTimeToLocale(item.eventDate)) && (
-              <AccordionEventItem
-                labelText={"EVENT TODAY"}
-                styles={"text-center items-center"}
-                textStyles={"text-red-500 font-bold"}
-                iconName={"alert-box-outline"}
-              />
-            )}
-          </View>
+          {!showRecordData && (
+            <View className={"flex flex-row"}>
+              {checkDate(convertDateTimeToLocale(item.eventDate)) && (
+                <AccordionEventItem
+                  labelText={"EVENT TODAY"}
+                  styles={"text-center items-center"}
+                  textStyles={"text-red-500 font-bold"}
+                  iconName={"alert-box-outline"}
+                />
+              )}
+            </View>
+          )}
 
           <View className={"flex flex-row justify-between"}>
             <View className={"flex"}>
               <AccordionEventItem labelText={item.eventLocation} iconName={"map-marker-outline"} />
-              <AccordionEventItem labelText={splitDateGetTime(item.eventDate)} iconName={"clock-outline"} />
+              <View className={"flex flex-row"}>
+                <AccordionEventItem
+                  labelText={`${splitDateGetTime(item.eventDate)} - ${splitDateGetTime(item.eventEndDate)}`}
+                  iconName={"clock-outline"}
+                />
+              </View>
             </View>
 
             <View className={"flex"}>
