@@ -1,8 +1,8 @@
 /**
- * Custom hook for managing form input state.
- *
- * @param {any} initialValue - The initial value of the input.
- * @returns {Object} - An object containing the current value, a change handler, and a reset function.
+ * @name useFormInput
+ * @description The useFormInput hook is used to manage form input fields.
+ * @param {string} initialValue - The initial value of the input field.
+ * @returns {Object} An object containing the value of the input field, a function to update the value, and a function to reset the value.
  */
 
 import { useState } from "react";

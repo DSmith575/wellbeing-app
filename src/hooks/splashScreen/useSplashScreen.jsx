@@ -1,7 +1,8 @@
 /**
- * Custom hook for managing the visibility of a splash screen.
- *
- * @returns {Object} An object containing the visibility state and the onLayoutRootView function.
+ * @name useSplashScreen
+ * @description The useSplashScreen hook is used to manage the splash screen in the app.
+ * @module useSplashScreen
+ * @returns {Object} An object containing the visibility of the splash screen and a function to handle the layout of the root view.
  */
 
 import { useState, useEffect, useCallback } from "react";

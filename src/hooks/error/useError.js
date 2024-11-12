@@ -1,7 +1,7 @@
 /**
- * Custom hook for managing errors.
- *
- * @returns {Object} An object containing the error and setError functions.
+ * @name useError
+ * @description The useError hook is used to manage errors in the app.
+ * @returns {Object} An object containing the error message and a function to set an error.
  */
 
 import { useState } from "react";

@@ -1,3 +1,13 @@
+/**
+ * @name BadgesOrCategoriesList
+ * @description This component displays a list of badges or categories.
+ * @param {Object} props - The component props.
+ * @param {string} props.title - The title of the list.
+ * @param {Array} props.data - The data to be displayed in the list.
+ * @param {string} props.noDataText - The text to display when there is no data.
+ * @returns {JSX.Element} - The rendered BadgesOrCategoriesList component.
+ */
+
 import { View, Text } from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 

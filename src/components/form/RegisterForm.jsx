@@ -1,3 +1,10 @@
+/**
+ * @name RegisterForm
+ * @description This component is a form that allows users to register for an account.
+ * @param {Object} props - The component props.
+ * @returns {JSX.Element} - Rendered component.
+ */
+
 import { View, Text, ActivityIndicator } from "react-native";
 import { handleFirebaseError } from "../../utils/firestore/firestoreErrors";
 import Input from "../../components/input/Input";

@@ -1,7 +1,8 @@
 /**
- * Handles Firebase errors by extracting the error message.
- * @param {Error|any} error - The error object.
- * @returns {string} - The extracted error message.
+ * @name handleFirebaseError
+ * @description This function handles errors from Firebase.
+ * @param {Object} error - The error object.
+ * @returns {string} The error message.
  */
 
 export const handleFirebaseError = (error) => {

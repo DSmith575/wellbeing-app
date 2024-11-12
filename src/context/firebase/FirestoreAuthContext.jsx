@@ -1,8 +1,10 @@
 /**
- * @desc A context provider component for user authentication using Firebase.
+ * @name FirestoreAuthContext
+ * @description The FirestoreAuthContext module is used to manage user authentication state.
  * @requires createContext, useContext, useEffect, useMemo, useState from 'react'
  * @requires signOut, signInWithEmailAndPassword, onAuthStateChanged from 'firebase/auth'
  * @requires auth from '../../config/firebase'
+ * @exports UserContextProvider - A context provider component that manages user authentication state.
  */
 
 import { createContext, useContext, useEffect, useMemo, useState } from "react";

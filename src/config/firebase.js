@@ -1,5 +1,6 @@
 /**
- * Firebase configuration file.
+ * @name firebaseConfig
+ * @description The firebaseConfig module is used to configure Firebase for the app.
  * @module firebaseConfig
  */
 

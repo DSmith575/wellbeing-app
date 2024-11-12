@@ -1,7 +1,6 @@
 /**
- * A reusable input component.
- *
- * @component
+ * @name Input
+ * @description The Input component is used to render a text input field.
  * @param {string} label - The label for the input.
  * @param {string} type - The type of the input.
  * @param {string} placeholder - The placeholder text for the input.

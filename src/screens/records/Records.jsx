@@ -1,8 +1,7 @@
 /**
- * Renders the Records component.
- * This component displays the user's records based on their role.
- *
- * @returns {JSX.Element} The rendered Records component.
+ * @name Records
+ * @description A screen component that renders the Accordion component.
+ * @returns {JSX.Element} The Records screen component.
  */
 
 import Accordion from "../../components/accordion/Accordion";

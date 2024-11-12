@@ -1,3 +1,10 @@
+/**
+ * Logout button component.
+ * @name LogoutButton
+ * @description The LogoutButton component is used to render a button that logs the user out.
+ * @returns {JSX.Element} The rendered LogoutButton component.
+ */
+
 import Button from "./Button";
 import { useUserAuth } from "../../context/firebase/FirestoreAuthContext";
 import { Text } from "react-native";

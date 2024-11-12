@@ -1,3 +1,11 @@
+/**
+ * Renders a component to display a login form.
+ * @name LoginForm
+ * @description This component displays a login form with email and password inputs.
+ * @returns {JSX.Element} - The rendered LoginForm component.
+ *
+ */
+
 import { View, Text, ActivityIndicator } from "react-native";
 import { useUserAuth } from "../../context/firebase/FirestoreAuthContext";
 import { handleFirebaseError } from "../../utils/firestore/firestoreErrors";

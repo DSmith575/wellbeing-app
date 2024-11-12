@@ -1,3 +1,9 @@
+/**
+ * @name routerLabels
+ * @description The routerLabels object contains the names and icons for each route in the app.
+ * @returns {Object} The routerLabels object.
+ */
+
 export const routerLabels = {
   events: {
     name: "Explore Events",

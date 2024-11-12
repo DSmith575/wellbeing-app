@@ -1,11 +1,11 @@
 /**
- * Defines the routes for the navigation in the wellbeing app.
- * Each route object contains the name, component, label, and icon properties.
- * @typedef {Object} Route
- * @property {string} name - The name of the route.
- * @property {React.Component} component - The component associated with the route.
- * @property {string} label - The label for the route.
- * @property {string} icon - The icon for the route.
+ * @name routes
+ * @description Array of route objects that define the navigation routes.
+ * @param {string} name - The name of the route.
+ * @param {React.Component} component - The component to render for the route.
+ * @param {string} label - The label for the route.
+ * @param {string} icon - The icon for the route.
+ * @returns {Route[]} The array of route objects.
  */
 
 import ExploreEvents from "../../screens/events/ExploreEvents";

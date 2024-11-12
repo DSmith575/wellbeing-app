@@ -1,7 +1,7 @@
 /**
- * Custom hook to handle loading states for any component.
- *
- * @returns {Object} An object containing the loading function and the setLoading function.
+ * @name useLoading
+ * @description A custom hook that handles loading states for any component.
+ * @returns {Object} An object containing the loading state and a function to set the loading state.
  */
 
 import { useState } from "react";

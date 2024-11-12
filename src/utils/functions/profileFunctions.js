@@ -1,3 +1,13 @@
+/**
+ * @name extractAndSortItems
+ * @description This function extracts and sorts items from an object.
+ * @param {Object} items - The items to be extracted and sorted.
+ * @param {RegExp} badgeRegex - The regular expression to use for extracting the event category.
+ * @returns {Array} The sorted items.
+ */
+
+import { badgeCategoryCounterColors } from "../constants/constants";
+
 export const extractAndSortItems = (items, badgeRegex) => {
   // First, sort the items by their value in descending order
   const sortedItems = Object.entries(items).sort(([, a], [, b]) => b - a); // Sort by numeric value
@@ -11,7 +21,14 @@ export const extractAndSortItems = (items, badgeRegex) => {
     const icon = index === 0 ? "star" : `numeric-${index + 1}-box`;
 
     // add hex color for index 0,1,2 where index value = gold,silver,bronze
-    const color = index === 0 ? "#ffcc00" : index === 1 ? "#838996" : index === 2 ? "#CD7F32" : "black";
+    const color =
+      index === 0
+        ? badgeCategoryCounterColors.gold
+        : index === 1
+          ? badgeCategoryCounterColors.silver
+          : index === 2
+            ? badgeCategoryCounterColors.bronze
+            : badgeCategoryCounterColors.other;
 
     return {
       key: newKey,

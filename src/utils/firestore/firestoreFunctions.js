@@ -1,3 +1,8 @@
+/**
+ * @name firestoreFunctions
+ * @description This module exports functions that interact with Firestore.
+ */
+
 import {
   collection,
   query,

@@ -1,6 +1,7 @@
 /**
- * Renders the ExploreEvents screen.
- * @returns {JSX.Element} The rendered ExploreEvents component.
+ * @name ExploreEvents
+ * @description A screen component that renders the Accordion component.
+ * @returns {JSX.Element} The ExploreEvents screen component.
  */
 
 import Accordion from "../../components/accordion/Accordion";

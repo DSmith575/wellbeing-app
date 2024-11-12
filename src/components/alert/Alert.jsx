@@ -1,6 +1,6 @@
 /**
- * Custom alert component.
- *
+ * @name QrScannerAlert
+ * @description This component displays an alert with a title, message, and button.
  * @param {Object} props - The props object.
  * @param {string} props.title - The title of the alert.
  * @param {string} props.message - The message of the alert.
@@ -8,6 +8,7 @@
  * @param {Function} props.onTouch - The function to be called when the button is pressed.
  * @returns {void}
  */
+
 import { Alert } from "react-native";
 
 const QrScannerAlert = ({ title, message, onTouch }) => {

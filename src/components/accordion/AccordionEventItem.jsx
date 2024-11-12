@@ -1,6 +1,6 @@
 /**
- * Renders an item for the accordion component.
- *
+ * @name AccordionEventItem
+ * @description This component displays an item in an accordion.
  * @param {string} iconName - The name of the MaterialCommunityIcons icon.
  * @param {string} labelText - The text to be displayed for the item.
  * @param {string} styles - The additional styles to be applied to the container view.

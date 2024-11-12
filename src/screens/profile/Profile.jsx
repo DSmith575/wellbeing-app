@@ -1,6 +1,7 @@
 /**
- * Renders the user profile screen.
- * @returns {JSX.Element} The profile screen component.
+ * @name Profile
+ * @description A screen component that renders the user's profile information.
+ * @returns {JSX.Element} The Profile screen component.
  */
 
 import { View, Text } from "react-native";

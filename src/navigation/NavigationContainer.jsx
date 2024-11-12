@@ -1,6 +1,7 @@
 /**
- * Renders the main navigation container for the app.
- * @returns {JSX.Element} The rendered navigation container.
+ * @name NavigationContainer
+ * @description This component wraps the entire application in a NavigationContainer.
+ * @returns {JSX.Element} - The rendered NavigationContainer component.
  */
 
 import { NavigationContainer } from "@react-navigation/native";

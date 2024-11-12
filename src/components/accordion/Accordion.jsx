@@ -1,9 +1,8 @@
 /**
- * Renders an accordion component that displays a list of events with collapsible sections.
- *
- * @component
+ * @name Accordion
+ * @description This component displays a list of events in an accordion format.
  * @param {Object} props - The component props.
- * @param {boolean} props.showRecordData - Determines whether to show detailed record data for each event.
+ * @param {boolean} props.showRecordData - Determines whether to show record data.
  * @param {boolean} props.shouldFilterByDate - Determines whether to filter events by date.
  * @returns {JSX.Element} The rendered Accordion component.
  */

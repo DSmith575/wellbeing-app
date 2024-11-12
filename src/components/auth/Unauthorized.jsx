@@ -1,5 +1,6 @@
 /**
- * Renders a component to display unauthorized access message.
+ * @name Unauthorized
+ * @description The Unauthorized component displays an error message when a user is not authorized.
  * @param {Object} props - The component props.
  * @param {string} props.text - The text to display.
  * @returns {JSX.Element} - The rendered Unauthorized component.

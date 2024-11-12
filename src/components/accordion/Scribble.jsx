@@ -1,6 +1,6 @@
 /**
- * Renders a scribble SVG component.
- *
+ * @name Scribble
+ * @description Renders a scribble SVG component.
  * @param {number} width - The width of the SVG component.
  * @param {number} height - The height of the SVG component.
  * @param {string} strokeColor - The color of the stroke.

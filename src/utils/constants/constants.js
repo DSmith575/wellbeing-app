@@ -1,3 +1,8 @@
+/**
+ * @name constants
+ * @description This module contains all the constants used in the application.
+ */
+
 export const firestoreCollections = {
   events: "events",
   users: "users",
@@ -20,6 +25,13 @@ export const userRoles = {
   user: "user",
 };
 
+export const badgeCategoryCounterColors = {
+  gold: "#ffcc00",
+  silver: "#838996",
+  bronze: "#CD7F32",
+  other: "black",
+};
+
 export const eventRecurrence = [
   {
     label: "Challenge",
@@ -35,17 +47,6 @@ export const eventRecurrence = [
   },
 ];
 
-/**
- * Array of event categories.
- * @typedef {Object} EventCategory
- * @property {string} label - The label of the category.
- * @property {string} uri - The URI of the category image.
- */
-
-/**
- * Array of event categories.
- * @type {EventCategory[]}
- */
 export const eventCategories = [
   {
     label: "Taha Wairua (Spiritual)",

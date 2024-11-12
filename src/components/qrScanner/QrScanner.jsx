@@ -1,3 +1,9 @@
+/**
+ * @name QrScanner
+ * @description This component is used to scan QR codes.
+ * @returns {JSX.Element}
+ */
+
 import { useState, useCallback } from "react";
 import { Text, View, TouchableOpacity, SafeAreaView, ActivityIndicator, Vibration } from "react-native";
 import { CameraView, useCameraPermissions } from "expo-camera";

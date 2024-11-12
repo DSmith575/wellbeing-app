@@ -1,7 +1,7 @@
 /**
- * Renders the tab navigation component.
- *
- * @returns {JSX.Element} The tab navigation component.
+ * @name TabNavigation
+ * @description This component creates a bottom tab navigation bar.
+ * @returns {JSX.Element} The rendered bottom tab navigation bar.
  */
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";

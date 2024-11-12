@@ -1,8 +1,8 @@
 /**
- * Custom hook to fetch user information.
- *
- * @param {string} userId - The ID of the user.
- * @returns {Object} - An object containing user information, loading state, and a reset function.
+ * @name useGetUserInfo
+ * @description The useGetUserInfo hook is used to fetch user information from Firestore.
+ * @param {string} userId - The ID of the user to fetch information for.
+ * @returns {Object} An object containing the user information, loading state, and a function to reset the user information.
  */
 
 import { useState, useEffect } from "react";

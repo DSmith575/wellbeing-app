@@ -1,8 +1,8 @@
 /**
- * Custom hook to fetch the list of attendees.
- *
- * @param {Array} attendees - The array of attendee IDs.
- * @returns {Object} - An object containing the list of attended users and loading state.
+ * @name useGetAttendeesList
+ * @description A custom hook that fetches the list of attendees for an event.
+ * @param {Array} attendees - The list of attendees for the event.
+ * @returns {Object} An object containing the list of attendees and loading state.
  */
 
 import { useState, useEffect } from "react";

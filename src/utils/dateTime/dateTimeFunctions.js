@@ -1,4 +1,9 @@
 /**
+ * @name dateTimeFunctions
+ * @description This file contains functions that handle date and time operations.
+ */
+
+/**
  * Returns the current date and time.
  * @returns {Date} The current date and time.
  */

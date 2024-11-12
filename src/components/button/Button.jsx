@@ -1,7 +1,6 @@
 /**
- * A custom accessible button component.
- *
- * @component
+ * @name AccessibleButton
+ * @description The AccessibleButton component is used to render an accessible
  * @param {function} onPress - The function to be called when the button is pressed.
  * @param {ReactNode} children - The content of the button.
  * @param {string} accessibilityLabel - The label for accessibility purposes.
