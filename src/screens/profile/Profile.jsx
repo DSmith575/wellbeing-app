@@ -31,8 +31,8 @@ const Profile = () => {
                 </View>
 
                 <View className={"flex-1"}>
-                  <ProfileList title={"Events Attended:"} data={userInfo?.badges} noDataText={"No Events Attended"} />
-                  <ProfileList title={"Categories Attended:"} data={userInfo?.categories} noDataText={"No Events Attended"} />
+                  <ProfileList title={"Events Attended"} data={userInfo?.badges} noDataText={"No Events Attended"} />
+                  <ProfileList title={"Categories Attended"} data={userInfo?.categories} noDataText={"No Events Attended"} />
                 </View>
               </View>
             </>
