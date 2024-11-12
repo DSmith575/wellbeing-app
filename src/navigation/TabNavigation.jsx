@@ -31,9 +31,6 @@ const TabNavigation = () => {
             headerShown: route.name === (routerLabels.login.name || routerLabels.register.name) ? false : true,
             tabBarActiveTintColor: "cornflowerblue",
             tabBarIcon: ({ color, size }) => <MaterialCommunityIcons name={route.icon} color={color} size={size} />,
-            tabBarStyle: {
-              display: route.name === (routerLabels.login.name || routerLabels.register.name) ? "none" : "block",
-            },
             headerRight: () => route.name === routerLabels.profile.name && <LogoutButton />,
           }}
         />
