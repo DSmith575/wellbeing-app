@@ -23,4 +23,8 @@ export const routerLabels = {
     name: "Home",
     icon: "home",
   },
+  register: {
+    name: "Register",
+    icon: "account-plus",
+  },
 };

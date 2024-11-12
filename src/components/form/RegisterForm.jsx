@@ -1,41 +1,70 @@
 import { View, Text, ActivityIndicator } from "react-native";
-import { useUserAuth } from "../../context/firebase/FirestoreAuthContext";
 import { handleFirebaseError } from "../../utils/firestore/firestoreErrors";
 import Input from "../../components/input/Input";
 import Button from "../../components/button/Button";
 import useFormInput from "../../hooks/forms/useFormInput";
 import useLoading from "../../hooks/loading/useLoading";
 import useError from "../../hooks/error/useError";
-import { routerLabels } from "../../navigation/routes/routerLabels";
+import { registerNewUser } from "../../utils/firestore/firestoreFunctions";
 import { useNavigation } from "@react-navigation/native";
+import { routerLabels } from "../../navigation/routes/routerLabels";
 
-const LoginForm = () => {
-  const { login } = useUserAuth();
+const RegisterForm = () => {
   const email = useFormInput("");
   const password = useFormInput("");
+  const firstName = useFormInput("");
+  const lastName = useFormInput("");
+
   const { loading, setLoading } = useLoading();
   const { error, setError } = useError();
   const navigation = useNavigation();
 
   const handleSubmit = async () => {
     try {
-      setError("login", "");
-      setLoading("login", true);
-      await login(email.value, password.value);
+      setError("signup", "");
+      setLoading("signup", true);
+      await registerNewUser(firstName.value, lastName.value, email.value, password.value);
       email.reset();
       password.reset();
     } catch (error) {
-      setError("login", handleFirebaseError(error));
+      setError("signup", handleFirebaseError(error));
     } finally {
-      setLoading("login", false);
+      setLoading("signup", false);
     }
   };
 
   return (
     <View className={"flex-1 justify-center items-center"}>
-      <Text className={"font-bold text-center items-center justify-center"}>Login</Text>
+      <Text className={"font-bold text-center items-center justify-center"}>Register</Text>
       <View className="w-11/12 flex items-center max-w-md border border-gray-300 rounded-lg p-5 bg-white shadow-lg">
-        {error("login") && <Text className="text-red-500">{error("login")}</Text>}
+        {error("signup") && <Text className="text-red-500">{error("signup")}</Text>}
+
+        <Input
+          label={"First Name"}
+          type="text"
+          placeholder="First Name..."
+          required
+          value={firstName.value}
+          onChangeText={firstName.onChange}
+          accessibilityLabel="Email address input"
+          accessibilityHint="Enter your email address here"
+          accessibilityRole="text"
+          accessibilityState={{ disabled: false }}
+        />
+
+        <Input
+          label={"Last Name"}
+          type="text"
+          placeholder="Last Name..."
+          required
+          value={lastName.value}
+          onChangeText={lastName.onChange}
+          accessibilityLabel="Email address input"
+          accessibilityHint="Enter your email address here"
+          accessibilityRole="text"
+          accessibilityState={{ disabled: false }}
+        />
+
         <Input
           label={"Email"}
           type="email"
@@ -69,18 +98,18 @@ const LoginForm = () => {
           accessibilityLabel="Login button"
           accessibilityHint="Tap to login"
           styles={"w-10/12 bg-blue-600 py-2 px-4 rounded-lg inline-flex items-center"}>
-          {loading("login") ? (
+          {loading("signup") ? (
             <ActivityIndicator size="small" className={"h-8"} />
           ) : (
-            <Text className="text-lg text-white text-center h-8">Login</Text>
+            <Text className="text-lg text-white text-center h-8">Register</Text>
           )}
         </Button>
       </View>
-      <Text className={"text-blue-500 underline mt-2"} onPress={() => navigation.navigate(routerLabels.register.name)}>
-        Don't have an account? Click here to sign up!
+      <Text className={"text-blue-500 underline mt-2"} onPress={() => navigation.navigate(routerLabels.login.name)}>
+        Already have an account? Login here.
       </Text>
     </View>
   );
 };
 
-export default LoginForm;
+export default RegisterForm;

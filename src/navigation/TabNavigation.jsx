@@ -27,7 +27,7 @@ const TabNavigation = () => {
           component={route.component}
           options={{
             tabBarLabel: route.label,
-            headerShown: route.name === routerLabels.login.name ? false : true,
+            headerShown: route.name === (routerLabels.login.name || routerLabels.register.name) ? false : true,
             tabBarActiveTintColor: "cornflowerblue",
             tabBarIcon: ({ color, size }) => <MaterialCommunityIcons name={route.icon} color={color} size={size} />,
             tabBarStyle: {

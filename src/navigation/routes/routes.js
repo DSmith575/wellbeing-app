@@ -13,6 +13,7 @@ import EventScanner from "../../screens/scanner/EventScanner";
 import Profile from "../../screens/profile/Profile";
 import Records from "../../screens/records/Records";
 import Login from "../../screens/auth/Login";
+import Register from "../../screens/auth/Register";
 import { routerLabels } from "./routerLabels";
 
 /**
@@ -49,5 +50,11 @@ export const routes = [
     component: Login,
     label: routerLabels.login.name,
     icon: routerLabels.login.icon,
+  },
+  {
+    name: routerLabels.register.name,
+    component: Register,
+    label: routerLabels.register.name,
+    icon: routerLabels.register.icon,
   },
 ];

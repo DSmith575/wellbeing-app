@@ -1,5 +1,20 @@
-import { collection, query, onSnapshot, doc, getDoc, updateDoc, arrayUnion, getDocs, where } from "firebase/firestore";
+import {
+  collection,
+  query,
+  onSnapshot,
+  doc,
+  getDoc,
+  updateDoc,
+  arrayUnion,
+  getDocs,
+  where,
+  setDoc,
+  addDoc,
+} from "firebase/firestore";
 import { firestore } from "../../config/firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../config/firebase";
+import { alertMessages, eventCategories, userRoles, firestoreCollections } from "../constants/constants";
 
 /**
  * Retrieves events from a Firestore collection and listens for real-time updates.
@@ -34,7 +49,7 @@ export const getFirebaseDocument = async (collectionName, docData) => {
     if (eventSnapshot.exists()) {
       return eventSnapshot.data();
     } else {
-      throw new Error("QR Code is invalid");
+      throw new Error(alertMessages.qrInvalid);
     }
   } catch (error) {
     throw new Error("Error getting event", error);
@@ -72,5 +87,39 @@ export const queryUserJoinedEvents = async (collectionName, user) => {
     return querySnapshot.docs.map((doc) => doc.data());
   } catch (error) {
     console.error(error);
+  }
+};
+
+export const registerNewUser = async (firstName, lastName, email, password) => {
+  try {
+    const signUserUp = await createUserWithEmailAndPassword(auth, email, password);
+
+    const newUserId = signUserUp.user.uid;
+
+    await createUserInformation({
+      newUserId: newUserId,
+      newUserFirstName: firstName,
+      newUserLastName: lastName,
+    });
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+export const createUserInformation = async ({ newUserId, newUserFirstName, newUserLastName }) => {
+  try {
+    const newUser = doc(firestore, firestoreCollections.users, newUserId);
+
+    const newUserData = {
+      badges: [],
+      firstName: newUserFirstName,
+      lastName: newUserLastName,
+      role: userRoles.user,
+      userId: newUserId,
+    };
+
+    await setDoc(newUser, newUserData);
+  } catch (error) {
+    throw new Error("Error creating user", error);
   }
 };

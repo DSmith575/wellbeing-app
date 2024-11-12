@@ -7,7 +7,7 @@
  */
 import { routerLabels } from "./routerLabels";
 
-const ignoredAuthenticatedRoutes = [routerLabels.login.name];
+const ignoredAuthenticatedRoutes = [routerLabels.login.name, routerLabels.register.name];
 
 const ignoredUnauthenticatedRoutes = [
   routerLabels.home.name,
