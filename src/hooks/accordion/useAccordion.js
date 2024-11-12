@@ -10,15 +10,17 @@ import { getEvents, queryUserJoinedEvents } from "../../utils/firestore/firestor
 import { eventCategories, firestoreCollections } from "../../utils/constants/constants";
 import { getCurrentDateTime, filteredEvents, sortedDates } from "../../utils/dateTime/dateTimeFunctions";
 import useLoading from "../loading/useLoading";
+import { useIsFocused } from "@react-navigation/native"; // Import useIsFocused hook
 
 const useAccordion = (user, showRecordData, shouldFilterByDate) => {
   const [sections, setSections] = useState([]);
   const { loading, setLoading } = useLoading();
+  const isFocused = useIsFocused(); // Track screen focus status
 
   const getEventData = async () => {
     try {
       setLoading("eventData", true);
-      await getEvents({
+      getEvents({
         collectionName: firestoreCollections.events,
         callback: async (snapshot) => {
           const eventList =
@@ -52,13 +54,16 @@ const useAccordion = (user, showRecordData, shouldFilterByDate) => {
             if (category) {
               const section = initializedSections.find((sec) => sec.title === category);
               if (section) {
-                section.data.push({ ...event });
+                section.data = section.data.concat({ ...event });
               }
             }
           });
 
-          setSections(initializedSections);
-          // Putting this loading in a finally causes the spinner to never show
+          // Prevent unnecessary state update if sections haven't changed
+          if (JSON.stringify(initializedSections) !== JSON.stringify(sections)) {
+            setSections(initializedSections);
+          }
+
           setLoading("eventData", false);
         },
       });
@@ -68,8 +73,10 @@ const useAccordion = (user, showRecordData, shouldFilterByDate) => {
   };
 
   useEffect(() => {
-    getEventData();
-  }, [shouldFilterByDate]);
+    if (isFocused) {
+      getEventData(); // Fetch data when screen is focused
+    }
+  }, [isFocused]); // Re-fetch on focus or when filter changes
 
   return { sections, loading };
 };

@@ -77,15 +77,15 @@ export const joinEvent = async (collectionName, docData, user) => {
     const eventRef = await getDoc(collectionRef);
     const event = eventRef.data();
     const badgeCounterEventName = event.eventCategory;
-    console.log(badgeCounterEventName);
+    const categoryCounterName = event.eventRecurrence;
 
     const userRef = doc(firestore, firestoreCollections.users, user);
 
     try {
       await updateDoc(userRef, {
         [`badges.${badgeCounterEventName}`]: increment(1),
+        [`categories.${categoryCounterName}`]: increment(1),
       });
-      console.log(`Badge count for ${badgeCounterEventName} incremented successfully!`);
     } catch (error) {
       console.error("Error updating badge count:", error);
     }
@@ -130,6 +130,7 @@ export const createUserInformation = async ({ newUserId, newUserFirstName, newUs
 
     const newUserData = {
       badges: [],
+      categories: [],
       firstName: newUserFirstName,
       lastName: newUserLastName,
       role: userRoles.user,

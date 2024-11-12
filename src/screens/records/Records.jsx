@@ -8,14 +8,12 @@
 import Accordion from "../../components/accordion/Accordion";
 import useGetUserInfo from "../../hooks/profile/useGetUserInfo";
 import { useUserAuth } from "../../context/firebase/FirestoreAuthContext";
-import { userRoles } from "../../utils/constants/constants";
 import Unauthorized from "../../components/auth/Unauthorized";
 import Spinner from "../../components/spinner/Spinner";
 
 const Records = () => {
   const { user } = useUserAuth();
   const { userInfo, loading } = useGetUserInfo(user);
-  // console.log(userInfo)
   return (
     <>
       {loading("userInfo") ? (

@@ -65,8 +65,6 @@ export const checkDate = (date) => {
 
 export const checkEventStartTime = (eventDate, eventEndDate) => {
   const currentDate = new Date().toLocaleString("en-NZ");
-  console.log("currentDate", currentDate);
-  console.log("eventDate", eventDate);
   return currentDate >= eventDate && currentDate <= eventEndDate;
 };
 

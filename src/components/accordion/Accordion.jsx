@@ -50,8 +50,9 @@ const Accordion = ({ showRecordData, shouldFilterByDate }) => {
           end={{ x: 0.1, y: 1 }}
           className={`bg-gradient-to-tr from-teal-300 to-cyan-300 rounded-lg p-3 pt-1 mb-2 h-40 my-1 mx-2 overflow-hidden flex justify-between`}>
           <View className={"flex flex-row justify-between"}>
-            <AccordionEventItem labelText={item.eventName} textStyles={"font-medium text-lg w-64 justify-start"} />
-
+            <View>
+              <AccordionEventItem labelText={item.eventName} textStyles={"font-medium text-lg w-64 justify-start"} />
+            </View>
             <AccordionEventItem
               labelText={`${splitDateGetCalendarDate(item.eventDate).date} ${splitDateGetCalendarDate(item.eventDate).month}`}
               iconName={"calendar-outline"}
@@ -60,42 +61,40 @@ const Accordion = ({ showRecordData, shouldFilterByDate }) => {
             />
           </View>
 
-          <SvgComponent
-            width={160}
-            height={160}
-            strokeColor={item.colorPicker}
-            styles={"absolute -bottom-4 right-24 opacity-5 rotate-90"}
-          />
-
           {!showRecordData && (
-            <View className={"flex flex-row"}>
+            <>
               {checkDate(convertDateTimeToLocale(item.eventDate)) && (
                 <AccordionEventItem
                   labelText={"EVENT TODAY"}
-                  styles={"text-center items-center"}
+                  styles={"text-center items-center mb-8"}
                   textStyles={"text-red-500 font-bold"}
                   iconName={"alert-box-outline"}
                 />
               )}
-            </View>
+            </>
           )}
 
           <View className={"flex flex-row justify-between"}>
-            <View className={"flex"}>
-              <AccordionEventItem labelText={item.eventLocation} iconName={"map-marker-outline"} />
-              <View className={"flex flex-row"}>
-                <AccordionEventItem
-                  labelText={`${splitDateGetTime(item.eventDate)} - ${splitDateGetTime(item.eventEndDate)}`}
-                  iconName={"clock-outline"}
-                />
-              </View>
+            <View className="flex-1">
+              <AccordionEventItem labelText={item.eventLocation} iconName="map-marker-outline" />
+              <AccordionEventItem
+                labelText={`${splitDateGetTime(item.eventDate)} - ${splitDateGetTime(item.eventEndDate)}`}
+                iconName="clock-outline"
+              />
             </View>
 
-            <View className={"flex"}>
-              <AccordionEventItem labelText={item.groupLimit > 0 ? item.groupLimit : "No Limit"} iconName={"account-group"} />
+            <View className={"ml-auto"}>
+              <AccordionEventItem labelText={item.groupLimit > 0 ? item.groupLimit : "No Limit"} iconName="account-group" />
               <AccordionEventItem labelText={item.eventRecurrence} iconName={findEventRecurrenceIcon(item.eventRecurrence)} />
             </View>
           </View>
+
+          <SvgComponent
+            width={130}
+            height={130}
+            strokeColor={item.colorPicker}
+            styles={"absolute -bottom-4 right-24 opacity-5 rotate-90"}
+          />
         </LinearGradient>
       </>
     );
@@ -108,7 +107,7 @@ const Accordion = ({ showRecordData, shouldFilterByDate }) => {
       ) : (
         <SectionList
           sections={sections}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item, index) => `${item.id}-${item.eventName || index}`}
           renderItem={renderItem}
           renderSectionHeader={renderSectionHeader}
         />

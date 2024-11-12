@@ -13,10 +13,10 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 
 const AccordionEventItem = ({ iconName, labelText, styles, textStyles }) => {
   return (
-    <View className={`${styles} flex flex-row items-center text-center`}>
+    <View className={`flex flex-row items-center ${styles}`}>
       <MaterialCommunityIcons name={iconName} size={24} color="black" />
-      <Text className={`font-light ml-1 ${textStyles}`} numberOfLines={1}>
-        {labelText}{" "}
+      <Text className={`font-light ml-2 ${textStyles}`} numberOfLines={1}>
+        {labelText}
       </Text>
     </View>
   );
