@@ -5,7 +5,7 @@ import { useFocusEffect } from "@react-navigation/native";
 import { useUserAuth } from "../../context/firebase/FirestoreAuthContext";
 import { firestoreCollections } from "../../utils/constants/constants";
 import { getFirebaseDocument, joinEvent } from "../../utils/firestore/firestoreFunctions";
-import { checkDate, convertDateTimeToLocale } from "../../utils/dateTime/dateTimeFunctions";
+import { convertDateTimeToLocale, checkEventStartTime } from "../../utils/dateTime/dateTimeFunctions";
 import { alertMessages } from "../../utils/constants/constants";
 import Spinner from "../spinner/Spinner";
 import useLoading from "../../hooks/loading/useLoading";
@@ -67,8 +67,9 @@ const QrScanner = () => {
 
       // Get the event date and check if it is valid
       const eventDate = convertDateTimeToLocale(docData.eventDate);
+      const eventEndDate = convertDateTimeToLocale(docData.eventEndDate);
 
-      if (!checkDate(eventDate)) {
+      if (!checkEventStartTime(eventDate, eventEndDate)) {
         return QrScannerAlert({
           title: docData.eventName,
           message: alertMessages.eventNotAvailable,

@@ -63,6 +63,13 @@ export const checkDate = (date) => {
   return eventDate === currentDate;
 };
 
+export const checkEventStartTime = (eventDate, eventEndDate) => {
+  const currentDate = new Date().toLocaleString("en-NZ");
+  console.log("currentDate", currentDate);
+  console.log("eventDate", eventDate);
+  return currentDate >= eventDate && currentDate <= eventEndDate;
+};
+
 /**
  * Sorts an array of dates in descending order based on the event date.
  * @param {Array} date - The array of dates to be sorted.
