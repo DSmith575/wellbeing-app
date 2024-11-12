@@ -1,4 +1,16 @@
-import { collection, query, onSnapshot, doc, getDoc, updateDoc, arrayUnion, getDocs, where, setDoc } from "firebase/firestore";
+import {
+  collection,
+  query,
+  onSnapshot,
+  doc,
+  getDoc,
+  updateDoc,
+  arrayUnion,
+  getDocs,
+  where,
+  setDoc,
+  increment,
+} from "firebase/firestore";
 import { firestore } from "../../config/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../config/firebase";
@@ -61,20 +73,22 @@ export const joinEvent = async (collectionName, docData, user) => {
       signedUp: arrayUnion(user),
     });
 
-    const x = eventCategories.map((category) => {
-      console.log(category.eventName);
-    });
-
     // Get event Category name for badge increment
-    // const eventRef = await getDoc(collectionRef);
-    // const event = eventRef.data();
-    // const badgeCounterEventName = event.eventCategory;
+    const eventRef = await getDoc(collectionRef);
+    const event = eventRef.data();
+    const badgeCounterEventName = event.eventCategory;
+    console.log(badgeCounterEventName);
 
-    // const userRef = doc(firestore, firestoreCollections.users, user);
+    const userRef = doc(firestore, firestoreCollections.users, user);
 
-    // await updateDoc(userRef, {
-    //   badges: arrayUnion(badgeCounterEventName),
-    // })
+    try {
+      await updateDoc(userRef, {
+        [`badges.${badgeCounterEventName}`]: increment(1),
+      });
+      console.log(`Badge count for ${badgeCounterEventName} incremented successfully!`);
+    } catch (error) {
+      console.error("Error updating badge count:", error);
+    }
   } catch (error) {
     throw new Error("Error joining event", error);
   }
