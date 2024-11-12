@@ -11,6 +11,7 @@ import { filterRoutes } from "./routes/filterRoutes";
 import { useUserAuth } from "../context/firebase/FirestoreAuthContext";
 import { useMemo } from "react";
 import { routerLabels } from "./routes/routerLabels";
+import LogoutButton from "../components/button/LogoutButton";
 
 const Tab = createBottomTabNavigator();
 
@@ -31,8 +32,9 @@ const TabNavigation = () => {
             tabBarActiveTintColor: "cornflowerblue",
             tabBarIcon: ({ color, size }) => <MaterialCommunityIcons name={route.icon} color={color} size={size} />,
             tabBarStyle: {
-              display: route.name === routerLabels.login.name ? "none" : "block",
+              display: route.name === (routerLabels.login.name || routerLabels.register.name) ? "none" : "block",
             },
+            headerRight: () => route.name === routerLabels.profile.name && <LogoutButton />,
           }}
         />
       ))}

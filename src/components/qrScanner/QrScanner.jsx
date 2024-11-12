@@ -11,11 +11,6 @@ import Spinner from "../spinner/Spinner";
 import useLoading from "../../hooks/loading/useLoading";
 import QrScannerAlert from "../alert/Alert";
 
-/*
-if event === recur and userId in signedUp and eventDate is in the future
-increment user's attendance count
-*/
-
 const QrScanner = () => {
   const { user } = useUserAuth();
   const [permission, requestPermission] = useCameraPermissions();

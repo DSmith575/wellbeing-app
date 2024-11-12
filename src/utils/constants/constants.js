@@ -13,6 +13,8 @@ export const alertMessages = {
   error: "Error",
   eventNameError: "Event name is not available.",
   qrInvalid: "Invalid QR code.",
+  calendarAccess: "Calendar access is required to add events to your calendar.",
+  allowCalendar: "Allow Calendar Access",
 };
 
 export const userRoles = {
