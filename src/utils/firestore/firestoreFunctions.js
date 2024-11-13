@@ -19,7 +19,7 @@ import {
 import { firestore } from "../../config/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../config/firebase";
-import { alertMessages, eventCategories, userRoles, firestoreCollections } from "../constants/constants";
+import { alertMessages, userRoles, firestoreCollections } from "../constants/constants";
 
 /**
  * Retrieves events from a Firestore collection and listens for real-time updates.
